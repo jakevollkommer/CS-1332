@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Merge sort - Wikipedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Merge_sort","wgTitle":"Merge sort","wgCurRevisionId":772302381,"wgRevisionId":772302381,"wgArticleId":20039,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages using citations with accessdate and no URL","Articles with inconsistent citation formats","Articles that may contain original research from May 2016","All articles that may contain original research","Pages using deprecated image syntax","All articles with unsourced statements","Articles with unsourced statements from June 2008","Wikipedia articles needing clarification from August 2016","Articles with unsourced statements from March 2014","Webarchive template wayback links","Articles with example pseudocode","Sorting algorithms","Comparison sorts","Stable sorts"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Merge_sort","wgRelevantArticleId":20039,"wgRequestId":"WNfJCwpAMEoAAAj1nacAAABI","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{}},"wgStableRevisionId":null,"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":false,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":true},"wgRelatedArticles":null,"wgRelatedArticlesBetaFeatureEnabled":false,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q189057","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.cite.styles":"ready","ext.pygments":"ready","ext.math.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options@0j3lz3q",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens@1dqfd7l",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["ext.cite.a11y","ext.math.scripts","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.legacy.wikibits","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interface","ext.quicksurveys.init","ext.centralNotice.geoIP","ext.centralNotice.startUp","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=ext.cite.styles%7Cext.math.styles%7Cext.pygments%2CwikimediaBadges%7Cext.uls.interlanguage%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles%7Cwikibase.client.init&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/w/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.29.0-wmf.17"/>
+<meta name="referrer" content="origin-when-cross-origin"/>
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif"/>
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Merge_sort"/>
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Merge_sort&amp;action=edit"/>
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Merge_sort&amp;action=edit"/>
+<link rel="apple-touch-icon" href="/static/apple-touch/wikipedia.png"/>
+<link rel="shortcut icon" href="/static/favicon/wikipedia.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd"/>
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/"/>
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Merge_sort"/>
+<link rel="dns-prefetch" href="//login.wikimedia.org"/>
+<link rel="dns-prefetch" href="//meta.wikimedia.org" />
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Merge_sort rootpage-Merge_sort skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice" class="mw-body-content"><!-- CentralNotice --></div>
+						<div class="mw-indicators mw-body-content">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Merge sort</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="plainlinks metadata ambox ambox-content ambox-Original_research" role="presentation">
+<tr>
+<td class="mbox-image">
+<div style="width:52px"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ambox_important.svg/40px-Ambox_important.svg.png" width="40" height="40" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ambox_important.svg/60px-Ambox_important.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ambox_important.svg/80px-Ambox_important.svg.png 2x" data-file-width="40" data-file-height="40" /></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article <b>possibly contains <a href="/wiki/Wikipedia:No_original_research" title="Wikipedia:No original research">original research</a></b>. <span class="hide-when-compact">Please <a class="external text" href="//en.wikipedia.org/w/index.php?title=Merge_sort&amp;action=edit">improve it</a> by <a href="/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">verifying</a> the claims made and adding <a href="/wiki/Wikipedia:Citing_sources#Inline_citations" title="Wikipedia:Citing sources">inline citations</a>. Statements consisting only of original research should be removed.</span> <small><i>(May 2016)</i></small> <small class="hide-when-compact"><i>(<a href="/wiki/Help:Maintenance_template_removal" title="Help:Maintenance template removal">Learn how and when to remove this template message</a>)</i></small></span></td>
+</tr>
+</table>
+<table class="infobox" style="width:22em">
+<caption>Merge sort</caption>
+<tr>
+<td colspan="2" style="text-align:center"><a href="/wiki/File:Merge-sort-example-300px.gif" class="image"><img alt="Merge-sort-example-300px.gif" src="//upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif" width="300" height="180" data-file-width="300" data-file-height="180" /></a>
+<div>An example of merge sort. First divide the list into the smallest unit (1 element), then compare each element with the adjacent list to sort and merge the two adjacent lists. Finally all the elements are sorted and merged.</div>
+</td>
+</tr>
+<tr>
+<th scope="row">Class</th>
+<td><a href="/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithm</a></td>
+</tr>
+<tr>
+<th scope="row">Data structure</th>
+<td><a href="/wiki/Array_data_structure" title="Array data structure">Array</a></td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case performance</a></th>
+<td>O(<i>n</i> log <i>n</i>)</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Best-case performance</a></th>
+<td>
+<p>O(<i>n</i> log <i>n</i>) typical,</p>
+O(<i>n</i>) natural variant</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Average performance</a></th>
+<td>O(<i>n</i> log <i>n</i>)</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case space complexity</a></th>
+<td>О(<i>n</i>) total, O(<i>n</i>) auxiliary</td>
+</tr>
+</table>
+<p>In <a href="/wiki/Computer_science" title="Computer science">computer science</a>, <b>merge sort</b> (also commonly spelled <b>mergesort</b>) is an efficient, general-purpose, <a href="/wiki/Comparison_sort" title="Comparison sort">comparison-based</a> <a href="/wiki/Sorting_algorithm" title="Sorting algorithm">sorting algorithm</a>. Most implementations produce a <a href="/wiki/Sorting_algorithm#Stability" title="Sorting algorithm">stable sort</a>, which means that the implementation preserves the input order of <a href="/wiki/Equality_(mathematics)" title="Equality (mathematics)">equal</a> elements in the sorted output. Mergesort is a <a href="/wiki/Divide_and_conquer_algorithm" title="Divide and conquer algorithm">divide and conquer algorithm</a> that was invented by <a href="/wiki/John_von_Neumann" title="John von Neumann">John von Neumann</a> in 1945.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> A detailed description and analysis of bottom-up mergesort appeared in a report by <a href="/wiki/Herman_Goldstine" title="Herman Goldstine">Goldstine</a> and Neumann as early as 1948.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Algorithm"><span class="tocnumber">1</span> <span class="toctext">Algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Top-down_implementation"><span class="tocnumber">1.1</span> <span class="toctext">Top-down implementation</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Bottom-up_implementation"><span class="tocnumber">1.2</span> <span class="toctext">Bottom-up implementation</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Top-down_implementation_using_lists"><span class="tocnumber">1.3</span> <span class="toctext">Top-down implementation using lists</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Bottom-up_implementation_using_lists"><span class="tocnumber">1.4</span> <span class="toctext">Bottom-up implementation using lists</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Natural_merge_sort"><span class="tocnumber">2</span> <span class="toctext">Natural merge sort</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Analysis"><span class="tocnumber">3</span> <span class="toctext">Analysis</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Variants"><span class="tocnumber">4</span> <span class="toctext">Variants</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Use_with_tape_drives"><span class="tocnumber">5</span> <span class="toctext">Use with tape drives</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Optimizing_merge_sort"><span class="tocnumber">6</span> <span class="toctext">Optimizing merge sort</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Parallel_merge_sort"><span class="tocnumber">7</span> <span class="toctext">Parallel merge sort</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Comparison_with_other_sort_algorithms"><span class="tocnumber">8</span> <span class="toctext">Comparison with other sort algorithms</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Notes"><span class="tocnumber">9</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#References"><span class="tocnumber">10</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#External_links"><span class="tocnumber">11</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=1" title="Edit section: Algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="/wiki/File:Merge_sort_animation2.gif" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Merge_sort_animation2.gif/220px-Merge_sort_animation2.gif" width="220" height="186" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/c/c5/Merge_sort_animation2.gif 1.5x" data-file-width="280" data-file-height="237" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Merge_sort_animation2.gif" class="internal" title="Enlarge"></a></div>
+Merge sort animation. The elements to sort are represented by dots.</div>
+</div>
+</div>
+<p>Conceptually, a merge sort works as follows:</p>
+<ol>
+<li>Divide the unsorted list into <i>n</i> sublists, each containing 1 element (a list of 1 element is considered sorted).</li>
+<li>Repeatedly <a href="/wiki/Merge_algorithm" title="Merge algorithm">merge</a> sublists to produce new sorted sublists until there is only 1 sublist remaining. This will be the sorted list.</li>
+</ol>
+<h3><span class="mw-headline" id="Top-down_implementation">Top-down implementation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=2" title="Edit section: Top-down implementation">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Example <a href="/wiki/C-like" class="mw-redirect" title="C-like">C-like</a> code using indices for top down merge sort algorithm that recursively splits the list (called <i>runs</i> in this example) into sublists until sublist size is 1, then merges those sublists to produce a sorted list. The copy back step is avoided with alternating the direction of the merge with each level of recursion.</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr">
+<pre>
+<span class="c1">// Array A[] has the items to sort; array B[] is a work array.</span>
+<span class="n">TopDownMergeSort</span><span class="p">(</span><span class="n">A</span><span class="p">[],</span> <span class="n">B</span><span class="p">[],</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CopyArray</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>           <span class="c1">// duplicate array A[] into B[]</span>
+    <span class="n">TopDownSplitMerge</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">);</span>   <span class="c1">// sort data from B[] into A[]</span>
+<span class="p">}</span>
+
+<span class="c1">// Sort the given run of array A[] using array B[] as a source.</span>
+<span class="c1">// iBegin is inclusive; iEnd is exclusive (A[iEnd] is not in the set).</span>
+<span class="n">TopDownSplitMerge</span><span class="p">(</span><span class="n">B</span><span class="p">[],</span> <span class="n">iBegin</span><span class="p">,</span> <span class="n">iEnd</span><span class="p">,</span> <span class="n">A</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">iEnd</span> <span class="o">-</span> <span class="n">iBegin</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>                       <span class="c1">// if run size == 1</span>
+        <span class="k">return</span><span class="p">;</span>                                 <span class="c1">//   consider it sorted</span>
+    <span class="c1">// split the run longer than 1 item into halves</span>
+    <span class="n">iMiddle</span> <span class="o">=</span> <span class="p">(</span><span class="n">iEnd</span> <span class="o">+</span> <span class="n">iBegin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>              <span class="c1">// iMiddle = mid point</span>
+    <span class="c1">// recursively sort both runs from array A[] into B[]</span>
+    <span class="n">TopDownSplitMerge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">iBegin</span><span class="p">,</span>  <span class="n">iMiddle</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>  <span class="c1">// sort the left  run</span>
+    <span class="n">TopDownSplitMerge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">iMiddle</span><span class="p">,</span>    <span class="n">iEnd</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>  <span class="c1">// sort the right run</span>
+    <span class="c1">// merge the resulting runs from array B[] into A[]</span>
+    <span class="n">TopDownMerge</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">iBegin</span><span class="p">,</span> <span class="n">iMiddle</span><span class="p">,</span> <span class="n">iEnd</span><span class="p">,</span> <span class="n">A</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//  Left source half is A[ iBegin:iMiddle-1].</span>
+<span class="c1">// Right source half is A[iMiddle:iEnd-1   ].</span>
+<span class="c1">// Result is            B[ iBegin:iEnd-1   ].</span>
+<span class="n">TopDownMerge</span><span class="p">(</span><span class="n">A</span><span class="p">[],</span> <span class="n">iBegin</span><span class="p">,</span> <span class="n">iMiddle</span><span class="p">,</span> <span class="n">iEnd</span><span class="p">,</span> <span class="n">B</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">iBegin</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">iMiddle</span><span class="p">;</span>
+    
+    <span class="c1">// While there are elements in the left or right runs...</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">iBegin</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">iEnd</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// If left run head exists and is &lt;= existing right run head.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">iMiddle</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">iEnd</span> <span class="o">||</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    
+        <span class="p">}</span>
+    <span class="p">}</span> 
+<span class="p">}</span>
+
+<span class="n">CopyArray</span><span class="p">(</span><span class="n">A</span><span class="p">[],</span> <span class="n">iBegin</span><span class="p">,</span> <span class="n">iEnd</span><span class="p">,</span> <span class="n">B</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">iBegin</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">iEnd</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+<h3><span class="mw-headline" id="Bottom-up_implementation">Bottom-up implementation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=3" title="Edit section: Bottom-up implementation">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Example C-like code using indices for bottom up merge sort algorithm which treats the list as an array of <i>n</i> sublists (called <i>runs</i> in this example) of size 1, and iteratively merges sub-lists back and forth between two buffers:</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr">
+<pre>
+<span class="c1">// array A[] has the items to sort; array B[] is a work array</span>
+<span class="kt">void</span> <span class="nf">BottomUpMergeSort</span><span class="p">(</span><span class="n">A</span><span class="p">[],</span> <span class="n">B</span><span class="p">[],</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Each 1-element run in A is already "sorted".</span>
+    <span class="c1">// Make successively longer sorted runs of length 2, 4, 8, 16... until whole array is sorted.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Array A is full of runs of length width.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Merge two runs: A[i:i+width-1] and A[i+width:i+2*width-1] to B[]</span>
+            <span class="c1">// or copy A[i:n-1] to B[] ( if(i+width &gt;= n) )</span>
+            <span class="n">BottomUpMerge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">B</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Now work array B is full of runs of length 2*width.</span>
+        <span class="c1">// Copy array B to array A for next iteration.</span>
+        <span class="c1">// A more efficient implementation would swap the roles of A and B.</span>
+        <span class="n">CopyArray</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+        <span class="c1">// Now array A is full of runs of length 2*width.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//  Left run is A[iLeft :iRight-1].</span>
+<span class="c1">// Right run is A[iRight:iEnd-1  ].</span>
+<span class="n">BottomUpMerge</span><span class="p">(</span><span class="n">A</span><span class="p">[],</span> <span class="n">iLeft</span><span class="p">,</span> <span class="n">iRight</span><span class="p">,</span> <span class="n">iEnd</span><span class="p">,</span> <span class="n">B</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">iLeft</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">iRight</span><span class="p">;</span>
+    <span class="c1">// While there are elements in the left or right runs...</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">iLeft</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">iEnd</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// If left run head exists and is &lt;= existing right run head.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">iRight</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">iEnd</span> <span class="o">||</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    
+        <span class="p">}</span>
+    <span class="p">}</span> 
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CopyArray</span><span class="p">(</span><span class="n">B</span><span class="p">[],</span> <span class="n">A</span><span class="p">[],</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+<h3><span class="mw-headline" id="Top-down_implementation_using_lists">Top-down implementation using lists</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=4" title="Edit section: Top-down implementation using lists">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p><a href="/wiki/Pseudocode" title="Pseudocode">Pseudocode</a> for top down merge sort algorithm which recursively divides the input list into smaller sublists until the sublists are trivially sorted, and then merges the sublists while returning up the call chain.</p>
+<pre>
+<b>function</b> merge_sort(<i>list</i> m)
+    // <i>Base case. A list of zero or one elements is sorted, by definition.</i>
+    <b>if</b> length of m ≤ 1 <b>then</b>
+        <b>return</b> m
+
+    // <i>Recursive case. First, divide the list into equal-sized sublists</i>
+    // <i>consisting of the first half and second half of the list.</i>
+    // <i>This assumes lists start at index 0.</i>
+    <b>var</b> left := empty list
+    <b>var</b> right := empty list
+    <b>for each</b> x <b>with index</b> i <b>in</b> m <b>do</b>
+        <b>if</b> i &lt; (length of m)/2 <b>then</b>
+            add x to left
+        <b>else</b>
+            add x to right
+
+    // <i>Recursively sort both sublists.</i>
+    left := merge_sort(left)
+    right := merge_sort(right)
+
+    // Then merge the now-sorted sublists.
+    <b>return</b> merge(left, right)
+</pre>
+<p>In this example, the <span style="font-family: monospace, monospace;">merge</span> function merges the left and right sublists.</p>
+<pre>
+<b>function</b> merge(left, right)
+    <b>var</b> result := empty list
+
+    <b>while</b> left is not empty <b>and</b> right is not empty <b>do</b>
+        <b>if</b> first(left) ≤ first(right) <b>then</b>
+            append first(left) to result
+            left := rest(left)
+        <b>else</b>
+            append first(right) to result
+            right := rest(right)
+
+    // <i>Either left or right may have elements left; consume them.</i>
+    // <i>(Only one of the following loops will actually be entered.)</i>
+    <b>while</b> left is not empty <b>do</b>
+        append first(left) to result
+        left := rest(left)
+    <b>while</b> right is not empty <b>do</b>
+        append first(right) to result
+        right := rest(right)
+    <b>return</b> result
+</pre>
+<h3><span class="mw-headline" id="Bottom-up_implementation_using_lists">Bottom-up implementation using lists</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=5" title="Edit section: Bottom-up implementation using lists">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p><a href="/wiki/Pseudocode" title="Pseudocode">Pseudocode</a> for bottom up merge sort algorithm which uses a small fixed size array of references to nodes, where array[i] is either a reference to a list of size 2 <sup>i</sup> or 0. <i>node</i> is a reference or pointer to a node. The merge() function would be similar to the one shown in the top down merge lists example, it merges two already sorted lists, and handles empty lists. In this case, merge() would use <i>node</i> for its input parameters and return value.</p>
+<pre>
+<b>function</b> merge_sort(<i>node</i> head)
+    // return if empty list
+    <b>if</b> (head == nil)
+        <b>return</b> nil
+    <b>var</b> <i>node</i> array[32]; initially all nil
+    <b>var</b> <i>node</i> result
+    <b>var</b> <i>node</i> next
+    <b>var</b> <i>int</i>  i
+    result = head
+    // merge nodes into array
+    <b>while</b> (result != nil)
+         next = result.next;
+         result.next = nil
+         <b>for</b>(i = 0; (i &lt; 32) &amp;&amp; (array[i] != nil); i += 1)
+              result = merge(array[i], result)
+              array[i] = nil
+         // do not go past end of array
+         <b>if</b> (i == 32)
+               i -= 1
+         array[i] = result
+         result = next
+    // merge array into single list
+    result = nil
+    <b>for</b> (i = 0; i &lt; 32; i += 1)
+         result = merge(array[i], result)
+    <b>return</b> result
+</pre>
+<h2><span class="mw-headline" id="Natural_merge_sort">Natural merge sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=6" title="Edit section: Natural merge sort">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>A natural merge sort is similar to a bottom up merge sort except that any naturally occurring runs (sorted sequences) in the input are exploited. Both monotonic and bitonic (alternating up/down) runs may be exploited, with lists (or equivalently tapes or files) being convenient data structures (used as <a href="/wiki/Queue_(abstract_data_type)" title="Queue (abstract data type)">FIFO queues</a> or <a href="/wiki/Stack_(abstract_data_type)" title="Stack (abstract data type)">LIFO stacks</a>).<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup> In the bottom up merge sort, the starting point assumes each run is one item long. In practice, random input data will have many short runs that just happen to be sorted. In the typical case, the natural merge sort may not need as many passes because there are fewer runs to merge. In the best case, the input is already sorted (i.e., is one run), so the natural merge sort need only make one pass through the data. In many practical cases, long natural runs are present, and for that reason natural merge sort is exploited as the key component of <a href="/wiki/Timsort" title="Timsort">Timsort</a>. Example:</p>
+<pre>
+Start       : 3--4--2--1--7--5--8--9--0--6
+Select runs : 3--4  2  1--7  5--8--9  0--6
+Merge       : 2--3--4  1--5--7--8--9  0--6
+Merge       : 1--2--3--4--5--7--8--9  0--6
+Merge       : 0--1--2--3--4--5--6--7--8--9
+</pre>
+<p><a href="/wiki/Tournament_sort" title="Tournament sort">Tournament replacement selection sorts</a> are used to gather the initial runs for external sorting algorithms.</p>
+<h2><span class="mw-headline" id="Analysis">Analysis</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=7" title="Edit section: Analysis">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:302px;"><a href="/wiki/File:Merge_sort_algorithm_diagram.svg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/300px-Merge_sort_algorithm_diagram.svg.png" width="300" height="289" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/450px-Merge_sort_algorithm_diagram.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/600px-Merge_sort_algorithm_diagram.svg.png 2x" data-file-width="618" data-file-height="595" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Merge_sort_algorithm_diagram.svg" class="internal" title="Enlarge"></a></div>
+A recursive merge sort algorithm used to sort an array of 7 integer values. These are the steps a human would take to emulate merge sort (top-down).</div>
+</div>
+</div>
+<p>In sorting <i>n</i> objects, merge sort has an <a href="/wiki/Average_performance" class="mw-redirect" title="Average performance">average</a> and <a href="/wiki/Worst-case_performance" class="mw-redirect" title="Worst-case performance">worst-case performance</a> of <a href="/wiki/Big_O_notation" title="Big O notation">O</a>(<i>n</i>&#160;log&#160;<i>n</i>). If the running time of merge sort for a list of length <i>n</i> is <i>T</i>(<i>n</i>), then the recurrence <i>T</i>(<i>n</i>) = 2<i>T</i>(<i>n</i>/2) + <i>n</i> follows from the definition of the algorithm (apply the algorithm to two lists of half the size of the original list, and add the <i>n</i> steps taken to merge the resulting two lists). The closed form follows from the <a href="/wiki/Master_theorem" title="Master theorem">master theorem</a>.</p>
+<p>In the worst case, the number of comparisons merge sort makes is equal to or slightly smaller than (<i>n</i>&#160;⌈<a href="/wiki/Binary_logarithm" title="Binary logarithm">lg</a>&#160;<i>n</i>⌉ - 2<sup>⌈lg&#160;<i>n</i>⌉</sup> + 1), which is between (<i>n</i>&#160;lg&#160;<i>n</i> - <i>n</i> + 1) and (<i>n</i>&#160;lg&#160;<i>n</i> + <i>n</i> + O(lg <i>n</i>)).<sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p>For large <i>n</i> and a randomly ordered input list, merge sort's expected (average) number of comparisons approaches <i>α</i>·<i>n</i> fewer than the worst case where <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" >
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>&#x03B1;<!-- α --></mi>
+        <mo>=</mo>
+        <mo>&#x2212;<!-- − --></mo>
+        <mn>1</mn>
+        <mo>+</mo>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="normal">&#x221E;<!-- ∞ --></mi>
+          </mrow>
+        </munderover>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mrow>
+              <msup>
+                <mn>2</mn>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>k</mi>
+                </mrow>
+              </msup>
+              <mo>+</mo>
+              <mn>1</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>&#x2248;<!-- ≈ --></mo>
+        <mn>0.2645.</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \alpha =-1+\sum _{k=0}^{\infty }{\frac {1}{2^{k}+1}}\approx 0.2645.}</annotation>
+  </semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d26965fea07d841c85071c791f70ba88a721f280" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.171ex; width:31.619ex; height:7.176ex;" alt="\alpha =-1+\sum _{k=0}^{\infty }{\frac {1}{2^{k}+1}}\approx 0.2645." /></span></p>
+<p>In the <i>worst</i> case, merge sort does about 39% fewer comparisons than <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> does in the <i>average</i> case. In terms of moves, merge sort's worst case complexity is <a href="/wiki/Big_O_notation" title="Big O notation">O</a>(<i>n</i>&#160;log&#160;<i>n</i>)—the same complexity as quicksort's best case, and merge sort's best case takes about half as many iterations as the worst case.<sup class="noprint Inline-Template Template-Fact" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (June 2008)">citation needed</span></a></i>]</sup></p>
+<p>Merge sort is more efficient than quicksort for some types of lists if the data to be sorted can only be efficiently accessed sequentially, and is thus popular in languages such as <a href="/wiki/Lisp_programming_language" class="mw-redirect" title="Lisp programming language">Lisp</a>, where sequentially accessed data structures are very common. Unlike some (efficient) implementations of quicksort, merge sort is a stable sort.</p>
+<p>Merge sort's most common implementation does not sort in place;<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup> therefore, the memory size of the input must be allocated for the sorted output to be stored in (see below for versions that need only <i>n</i>/2 extra spaces).</p>
+<h2><span class="mw-headline" id="Variants">Variants</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=8" title="Edit section: Variants">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Variants of merge sort are primarily concerned with reducing the space complexity and the cost of copying.</p>
+<p>A simple alternative for reducing the space overhead to <i>n</i>/2 is to maintain <i>left</i> and <i>right</i> as a combined structure, copy only the <i>left</i> part of <i>m</i> into temporary space, and to direct the <i>merge</i> routine to place the merged output into <i>m</i>. With this version it is better to allocate the temporary space outside the <i>merge</i> routine, so that only one allocation is needed. The excessive copying mentioned previously is also mitigated, since the last pair of lines before the <i>return result</i> statement (function <i>merge</i> in the pseudo code above) become superfluous.</p>
+<p>One drawback of merge sort, when implemented on arrays, is its <span class="texhtml"><i>O</i>(<i>n</i>)</span> working memory requirement. Several <a href="/wiki/In-place_algorithm" title="In-place algorithm">in-place</a> variants have been suggested:</p>
+<ul>
+<li>Katajainen <i>et al.</i> present an algorithm that requires a constant amount of working memory: enough storage space to hold one element of the input array, and additional space to hold <span class="texhtml"><i>O</i>(1)</span> pointers into the input array. They achieve an <span class="texhtml"><i>O</i>(<i>n</i> log <i>n</i>)</span> time bound with small constants, but their algorithm is not stable.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup></li>
+<li>Several attempts have been made at producing an <i>in-place merge</i> algorithm that can be combined with a standard (top-down or bottom-up) merge sort to produce an in-place merge sort. In this case, the notion of "in-place" can be relaxed to mean "taking logarithmic stack space", because standard merge sort requires that amount of space for its own stack usage. It was shown by Geffert <i>et al.</i> that in-place, stable merging is possible in <span class="texhtml"><i>O</i>(<i>n</i> log <i>n</i>)</span> time using a constant amount of scratch space, but their algorithm is complicated and has high constant factors: merging arrays of length <span class="texhtml mvar" style="font-style:italic;">n</span> and <span class="texhtml mvar" style="font-style:italic;">m</span> can take <span class="texhtml">5<i>n</i> + 12<i>m</i> + <i>o</i>(<i>m</i>)</span> moves.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup> This high constant factor and complicated in-place algorithm was made simpler and easier to understand. Bing-Chao Huang and Michael A. Langston<sup id="cite_ref-Research_Contributions_8-0" class="reference"><a href="#cite_note-Research_Contributions-8">[8]</a></sup> presented a straightforward linear time algorithm <i>practical in-place merge</i> to merge a sorted list using fixed amount of additional space. They both have used the work of Kronrod and others. It merges in linear time and constant extra space. The algorithm takes little more average time than standard merge sort algorithms, free to exploit O(n) temporary extra memory cells, by less than a factor of two. Though the algorithm is much faster in practical way but it is unstable also for some list. But using similar concept they have been able to solve this problem. Other in-place algorithms include SymMerge, which takes <span class="texhtml"><i>O</i>((<i>n</i> + <i>m</i>) log (<i>n</i> + <i>m</i>))</span> time in total.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9">[9]</a></sup> Plugging such an algorithm into merge sort increases its complexity to the non-linearithmic, but still <a href="/wiki/Quasilinear_time" class="mw-redirect" title="Quasilinear time">quasilinear</a>, <span class="texhtml"><i>O</i>(<i>n</i> (log <i>n</i>)<sup>2</sup>)</span>.</li>
+</ul>
+<p>An alternative to reduce the copying into multiple lists is to associate a new field of information with each key (the elements in <i>m</i> are called keys). This field will be used to link the keys and any associated information together in a sorted list (a key and its related information is called a record). Then the merging of the sorted lists proceeds by changing the link values; no records need to be moved at all. A field which contains only a link will generally be smaller than an entire record so less space will also be used. This is a standard sorting technique, not restricted to merge sort.</p>
+<h2><span class="mw-headline" id="Use_with_tape_drives">Use with tape drives</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=9" title="Edit section: Use with tape drives">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="/wiki/File:IBM_729_Tape_Drives.nasa.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/6/6c/IBM_729_Tape_Drives.nasa.jpg/220px-IBM_729_Tape_Drives.nasa.jpg" width="220" height="165" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/6/6c/IBM_729_Tape_Drives.nasa.jpg 1.5x" data-file-width="321" data-file-height="241" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:IBM_729_Tape_Drives.nasa.jpg" class="internal" title="Enlarge"></a></div>
+Merge sort type algorithms allowed large data sets to be sorted on early computers that had small random access memories by modern standards. Records were stored on <a href="/wiki/Magnetic_tape" title="Magnetic tape">magnetic tape</a> and processed on banks of magnetic tape drives, such as these <a href="/wiki/IBM_729" title="IBM 729">IBM 729s</a>.</div>
+</div>
+</div>
+<p>An <a href="/wiki/External_sorting" title="External sorting">external</a> merge sort is practical to run using <a href="/wiki/Disk_storage" title="Disk storage">disk</a> or <a href="/wiki/Tape_drive" title="Tape drive">tape</a> drives when the data to be sorted is too large to fit into <a href="/wiki/Primary_storage" class="mw-redirect" title="Primary storage">memory</a>. <a href="/wiki/External_sorting" title="External sorting">External sorting</a> explains how merge sort is implemented with disk drives. A typical tape drive sort uses four tape drives. All I/O is sequential (except for rewinds at the end of each pass). A minimal implementation can get by with just 2 record buffers and a few program variables.</p>
+<p>Naming the four tape drives as A, B, C, D, with the original data on A, and using only 2 record buffers, the algorithm is similar to <a href="#Bottom-up_implementation">Bottom-up implementation</a>, using pairs of tape drives instead of arrays in memory. The basic algorithm can be described as follows:</p>
+<ol>
+<li>Merge pairs of records from A; writing two-record sublists alternately to C and D.</li>
+<li>Merge two-record sublists from C and D into four-record sublists; writing these alternately to A and B.</li>
+<li>Merge four-record sublists from A and B into eight-record sublists; writing these alternately to C and D</li>
+<li>Repeat until you have one list containing all the data, sorted—in log<sub>2</sub>(<i>n</i>) passes.</li>
+</ol>
+<p>Instead of starting with very short runs, usually a <a href="/wiki/Hybrid_algorithm" title="Hybrid algorithm">hybrid algorithm</a> is used, where the initial pass will read many records into memory, do an internal sort to create a long run, and then distribute those long runs onto the output set. The step avoids many early passes. For example, an internal sort of 1024 records will save 9 passes. The internal sort is often large because it has such a benefit. In fact, there are techniques that can make the initial runs longer than the available internal memory.<sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>A more sophisticated merge sort that optimizes tape (and disk) drive usage is the <a href="/wiki/Polyphase_merge_sort" title="Polyphase merge sort">polyphase merge sort</a>.</p>
+<h2><span class="mw-headline" id="Optimizing_merge_sort">Optimizing merge sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=10" title="Edit section: Optimizing merge sort">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>On modern computers, <a href="/wiki/Locality_of_reference" title="Locality of reference">locality of reference</a> can be of paramount importance in <a href="/wiki/Software_optimization" class="mw-redirect" title="Software optimization">software optimization</a>, because multilevel <a href="/wiki/Memory_hierarchy" title="Memory hierarchy">memory hierarchies</a> are used. <a href="/wiki/Cache_(computing)" title="Cache (computing)">Cache</a>-aware versions of the merge sort algorithm, whose operations have been specifically chosen to minimize the movement of pages in and out of a machine's memory cache, have been proposed. For example, the <b><span id="tiled_merge_sort">tiled merge sort</span></b> algorithm stops partitioning subarrays when subarrays of size S are reached, where S is the number of data items fitting into a CPU's cache. Each of these subarrays is sorted with an in-place sorting algorithm such as <a href="/wiki/Insertion_sort" title="Insertion sort">insertion sort</a>, to discourage memory swaps, and normal merge sort is then completed in the standard recursive fashion. This algorithm has demonstrated better performance<sup class="noprint Inline-Template" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Please_clarify" title="Wikipedia:Please clarify"><span title="The text in the vicinity of this tag needs examples for clarification (August 2016)">examples needed</span></a></i>]</sup> on machines that benefit from cache optimization. (<a href="#CITEREFLaMarcaLadner1997">LaMarca &amp; Ladner 1997</a>)</p>
+<p><a href="#CITEREFKronrod1969">Kronrod (1969)</a> suggested an alternative version of merge sort that uses constant additional space. This algorithm was later refined. (<a href="#CITEREFKatajainenPasanenTeuhola1996">Katajainen, Pasanen &amp; Teuhola 1996</a>)</p>
+<p>Also, many applications of <a href="/wiki/External_sorting" title="External sorting">external sorting</a> use a form of merge sorting where the input get split up to a higher number of sublists, ideally to a number for which merging them still makes the currently processed set of <a href="/wiki/Page_(computer_memory)" title="Page (computer memory)">pages</a> fit into main memory.</p>
+<h2><span class="mw-headline" id="Parallel_merge_sort">Parallel merge sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=11" title="Edit section: Parallel merge sort">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Merge sort parallelizes well due to use of the divide-and-conquer method. Several parallel variants are discussed in the third edition of Cormen, Leiserson, Rivest, and Stein's <i>Introduction to Algorithms</i>.<sup id="cite_ref-clrs_11-0" class="reference"><a href="#cite_note-clrs-11">[11]</a></sup> The first of these can be very easily expressed in a pseudocode with <a href="/wiki/Fork%E2%80%93join_model" title="Fork–join model">fork and join</a> keywords:</p>
+<pre>
+// <i>Sort elements lo through hi (exclusive) of array A.</i>
+<b>algorithm</b> mergesort(A, lo, hi) <b>is</b>
+    <b>if</b> lo+1 &lt; hi <b>then</b>  // <i>Two or more elements.</i>
+        mid = ⌊(lo + hi) / 2⌋
+        <b>fork</b> mergesort(A, lo, mid)
+        mergesort(A, mid, hi)
+        <b>join</b>
+        merge(A, lo, mid, hi)
+</pre>
+<p>This algorithm is a trivial modification from the serial version, and its speedup is not impressive: when executed on an <a href="/wiki/Analysis_of_parallel_algorithms" title="Analysis of parallel algorithms">infinite number of processors</a>, it runs in <span class="texhtml">Θ(<i>n</i>)</span> time, which is only a <span class="texhtml">Θ(log <i>n</i>)</span> improvement on the serial version. A better result can be obtained by using a parallelized <a href="/wiki/Merge_algorithm" title="Merge algorithm">merge algorithm</a>, which gives parallelism <span class="texhtml">Θ(<i>n</i> / (log <i>n</i>)<sup>2</sup>)</span>, meaning that this type of parallel merge sort runs in</p>
+<dl>
+<dd><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" >
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">&#x0398;<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <mo stretchy="false">(</mo>
+          <mi>n</mi>
+          <mi>log</mi>
+          <mo>&#x2061;<!-- ⁡ --></mo>
+          <mi>n</mi>
+          <mo stretchy="false">)</mo>
+          <mo>&#x22C5;<!-- ⋅ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mrow>
+                <mo stretchy="false">(</mo>
+                <mi>log</mi>
+                <mo>&#x2061;<!-- ⁡ --></mo>
+                <mi>n</mi>
+                <msup>
+                  <mo stretchy="false">)</mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+              </mrow>
+              <mi>n</mi>
+            </mfrac>
+          </mrow>
+          <mo>)</mo>
+        </mrow>
+        <mo>=</mo>
+        <mi mathvariant="normal">&#x0398;<!-- Θ --></mi>
+        <mo stretchy="false">(</mo>
+        <mo stretchy="false">(</mo>
+        <mi>log</mi>
+        <mo>&#x2061;<!-- ⁡ --></mo>
+        <mi>n</mi>
+        <msup>
+          <mo stretchy="false">)</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>3</mn>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left((n\log n)\cdot {\frac {(\log n)^{2}}{n}}\right)=\Theta ((\log n)^{3})}</annotation>
+  </semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/f938d12e9d00a4a48ac91d74ec2207f2fcc346a2" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.171ex; width:38.984ex; height:7.509ex;" alt="{\displaystyle \Theta \left((n\log n)\cdot {\frac {(\log n)^{2}}{n}}\right)=\Theta ((\log n)^{3})}" /></span></dd>
+</dl>
+<p>time if enough processors are available.<sup id="cite_ref-clrs_11-1" class="reference"><a href="#cite_note-clrs-11">[11]</a></sup> Such a sort can perform well in practice when combined with a fast stable sequential sort, such as <a href="/wiki/Insertion_sort" title="Insertion sort">insertion sort</a>, and a fast sequential merge as a base case for merging small arrays.<sup id="cite_ref-12" class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p>Merge sort was one of the first sorting algorithms where optimal speed up was achieved, with Richard Cole using a clever subsampling algorithm to ensure <span class="texhtml"><i>O</i>(1)</span> merge.<sup id="cite_ref-13" class="reference"><a href="#cite_note-13">[13]</a></sup> Other sophisticated parallel sorting algorithms can achieve the same or better time bounds with a lower constant. For example, in 1991 David Powers described a parallelized <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> (and a related <a href="/wiki/Radix_sort" title="Radix sort">radix sort</a>) that can operate in <i>O</i>(log <i>n</i>) time on a <a href="/wiki/CRCW" class="mw-redirect" title="CRCW">CRCW</a> <a href="/wiki/Parallel_random-access_machine" title="Parallel random-access machine">parallel random-access machine</a> (PRAM) with <i>n</i> processors by performing partitioning implicitly.<sup id="cite_ref-14" class="reference"><a href="#cite_note-14">[14]</a></sup> Powers<sup id="cite_ref-15" class="reference"><a href="#cite_note-15">[15]</a></sup> further shows that a pipelined version of Batcher's <a href="/wiki/Bitonic_sorter" title="Bitonic sorter">Bitonic Mergesort</a> at <i>O</i>((log <i>n</i>)<sup>2</sup>) time on a butterfly <a href="/wiki/Sorting_network" title="Sorting network">sorting network</a> is in practice actually faster than his <i>O</i>(log <i>n</i>) sorts on a <a href="/wiki/Parallel_Random_Access_Machine" class="mw-redirect" title="Parallel Random Access Machine">PRAM</a>, and he provides detailed discussion of the hidden overheads in comparison, radix and parallel sorting.</p>
+<h2><span class="mw-headline" id="Comparison_with_other_sort_algorithms">Comparison with other sort algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=12" title="Edit section: Comparison with other sort algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Although <a href="/wiki/Heapsort" title="Heapsort">heapsort</a> has the same time bounds as merge sort, it requires only Θ(1) auxiliary space instead of merge sort's Θ(<i>n</i>). On typical modern architectures, efficient <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> implementations generally outperform mergesort for sorting RAM-based arrays.<sup class="noprint Inline-Template Template-Fact" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (March 2014)">citation needed</span></a></i>]</sup> On the other hand, merge sort is a stable sort and is more efficient at handling slow-to-access sequential media. Merge sort is often the best choice for sorting a <a href="/wiki/Linked_list" title="Linked list">linked list</a>: in this situation it is relatively easy to implement a merge sort in such a way that it requires only Θ(1) extra space, and the slow random-access performance of a linked list makes some other algorithms (such as quicksort) perform poorly, and others (such as heapsort) completely impossible.</p>
+<p>As of <a href="/wiki/Perl" title="Perl">Perl</a> 5.8, merge sort is its default sorting algorithm (it was quicksort in previous versions of Perl). In <a href="/wiki/Java_platform" class="mw-redirect" title="Java platform">Java</a>, the <a rel="nofollow" class="external text" href="http://docs.oracle.com/javase/6/docs/api/java/util/Arrays.html">Arrays.sort()</a> methods use merge sort or a tuned quicksort depending on the datatypes and for implementation efficiency switch to <a href="/wiki/Insertion_sort" title="Insertion sort">insertion sort</a> when fewer than seven array elements are being sorted.<sup id="cite_ref-16" class="reference"><a href="#cite_note-16">[16]</a></sup> The linux kernel uses merge sort for its linked lists.<sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[17]</a></sup> <a href="/wiki/Python_(programming_language)" title="Python (programming language)">Python</a> uses <a href="/wiki/Timsort" title="Timsort">Timsort</a>, another tuned hybrid of merge sort and insertion sort, that has become the standard sort algorithm in <a href="/wiki/Java_7" class="mw-redirect" title="Java 7">Java SE 7</a>,<sup id="cite_ref-18" class="reference"><a href="#cite_note-18">[18]</a></sup> on the <a href="/wiki/Android_(operating_system)" title="Android (operating system)">Android platform</a>,<sup id="cite_ref-19" class="reference"><a href="#cite_note-19">[19]</a></sup> and in <a href="/wiki/GNU_Octave" title="GNU Octave">GNU Octave</a>.<sup id="cite_ref-20" class="reference"><a href="#cite_note-20">[20]</a></sup></p>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=13" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist columns references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span> <span class="reference-text"><a href="#CITEREFKnuth1998">Knuth (1998</a>, p.&#160;158)</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2">^</a></b></span> <span class="reference-text"><cite id="CITEREFJyrki_Katajainen_and_Jesper_Larsson_Tr.C3.A4ff1997" class="citation journal">Jyrki Katajainen and Jesper Larsson Träff (1997). "A meticulous analysis of mergesort programs".</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=A+meticulous+analysis+of+mergesort+programs&amp;rft.au=Jyrki+Katajainen+and+Jesper+Larsson+Tr%C3%A4ff&amp;rft.date=1997&amp;rft.genre=article&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3">^</a></b></span> <span class="reference-text">Powers, David M. W. and McMahon Graham B. (1983), "A compendium of interesting prolog programs", DCS Technical Report 8313, Department of Computer Science, University of New South Wales.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4">^</a></b></span> <span class="reference-text">The worst case number given here does not agree with that given in <a href="/wiki/Donald_Knuth" title="Donald Knuth">Knuth</a>'s <i><a href="/wiki/Art_of_Computer_Programming" class="mw-redirect" title="Art of Computer Programming">Art of Computer Programming</a>, Vol 3</i>. The discrepancy is due to Knuth analyzing a variant implementation of merge sort that is slightly sub-optimal</span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5">^</a></b></span> <span class="reference-text"><cite class="citation book">Cormen; Leiserson; Rivest; Stein. <i>Introduction to Algorithms</i>. p.&#160;151. <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/978-0-262-03384-8" title="Special:BookSources/978-0-262-03384-8">978-0-262-03384-8</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.au=Cormen&amp;rft.au=Leiserson&amp;rft.au=Rivest&amp;rft.au=Stein&amp;rft.btitle=Introduction+to+Algorithms&amp;rft.genre=book&amp;rft.isbn=978-0-262-03384-8&amp;rft.pages=151&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span> <span style="display:none;font-size:100%" class="error citation-comment"><code style="color:inherit; border:inherit; padding:inherit;">|access-date=</code> requires <code style="color:inherit; border:inherit; padding:inherit;">|url=</code> (<a href="/wiki/Help:CS1_errors#accessdate_missing_url" title="Help:CS1 errors">help</a>)</span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6">^</a></b></span> <span class="reference-text"><cite class="citation journal">Katajainen, Jyrki; Pasanen, Tomi; Teuhola, Jukka (1996). "Practical in-place mergesort". <i>Nordic J. Computing</i>. <b>3</b> (1): 27–40. <a href="/wiki/CiteSeerX" title="CiteSeerX">CiteSeerX</a>&#160;<span class="plainlinks"><a rel="nofollow" class="external text" href="//citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.8523">10.1.1.22.8523</a><span style="margin-left:0.1em"><img alt="Freely accessible" src="//upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/9px-Lock-green.svg.png" title="Freely accessible" width="9" height="14" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/14px-Lock-green.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/18px-Lock-green.svg.png 2x" data-file-width="512" data-file-height="813" /></span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Practical+in-place+mergesort&amp;rft.aufirst=Jyrki&amp;rft.aulast=Katajainen&amp;rft.au=Pasanen%2C+Tomi&amp;rft.au=Teuhola%2C+Jukka&amp;rft.date=1996&amp;rft.genre=article&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.22.8523&amp;rft.issue=1&amp;rft.jtitle=Nordic+J.+Computing&amp;rft.pages=27-40&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=3" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7">^</a></b></span> <span class="reference-text"><cite class="citation journal">Geffert, Viliam; Katajainen, Jyrki; Pasanen, Tomi (2000). "Asymptotically efficient in-place merging". <i>Theoretical Computer Science</i>. <b>237</b>: 159–181. <a href="/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="//dx.doi.org/10.1016%2FS0304-3975%2898%2900162-5">10.1016/S0304-3975(98)00162-5</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Asymptotically+efficient+in-place+merging&amp;rft.aufirst=Viliam&amp;rft.au=Katajainen%2C+Jyrki&amp;rft.aulast=Geffert&amp;rft.au=Pasanen%2C+Tomi&amp;rft.date=2000&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1016%2FS0304-3975%2898%2900162-5&amp;rft.jtitle=Theoretical+Computer+Science&amp;rft.pages=159-181&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=237" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-Research_Contributions-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-Research_Contributions_8-0">^</a></b></span> <span class="reference-text"><cite class="citation journal">Huang, Bing-Chao; Langston, Michael A. (March 1988). "Practical In-Place Merging". <i>Communications of the ACM</i>. <b>31</b> (3): 348–352. <a href="/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="//dx.doi.org/10.1145%2F42392.42403">10.1145/42392.42403</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Practical+In-Place+Merging&amp;rft.aufirst=Bing-Chao&amp;rft.au=Langston%2C+Michael+A.&amp;rft.aulast=Huang&amp;rft.date=1988-03&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1145%2F42392.42403&amp;rft.issue=3&amp;rft.jtitle=Communications+of+the+ACM&amp;rft.pages=348-352&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=31" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-9">^</a></b></span> <span class="reference-text"><cite class="citation conference">Kim, Pok-Son; Kutzner, Arne (2004). <i>Stable Minimum Storage Merging by Symmetric Comparisons</i>. European Symp. Algorithms. Lecture Notes in Computer Science. <b>3221</b>. pp.&#160;714–723. <a href="/wiki/CiteSeerX" title="CiteSeerX">CiteSeerX</a>&#160;<span class="plainlinks"><a rel="nofollow" class="external text" href="//citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.102.4612">10.1.1.102.4612</a><span style="margin-left:0.1em"><img alt="Freely accessible" src="//upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/9px-Lock-green.svg.png" title="Freely accessible" width="9" height="14" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/14px-Lock-green.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/18px-Lock-green.svg.png 2x" data-file-width="512" data-file-height="813" /></span></span>. <a href="/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="//dx.doi.org/10.1007%2F978-3-540-30140-0_63">10.1007/978-3-540-30140-0_63</a>. <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/978-3-540-23025-0" title="Special:BookSources/978-3-540-23025-0">978-3-540-23025-0</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.aufirst=Pok-Son&amp;rft.au=Kutzner%2C+Arne&amp;rft.aulast=Kim&amp;rft.btitle=Stable+Minimum+Storage+Merging+by+Symmetric+Comparisons&amp;rft.date=2004&amp;rft.genre=conference&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.102.4612&amp;rft_id=info%3Adoi%2F10.1007%2F978-3-540-30140-0_63&amp;rft.isbn=978-3-540-23025-0&amp;rft.pages=714-723&amp;rft.series=Lecture+Notes+in+Computer+Science&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10">^</a></b></span> <span class="reference-text">Selection sort. Knuth's snowplow. Natural merge.</span></li>
+<li id="cite_note-clrs-11"><span class="mw-cite-backlink">^ <a href="#cite_ref-clrs_11-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-clrs_11-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><a href="#CITEREFCormenLeisersonRivestStein2009">Cormen et al. 2009</a>, pp.&#160;797–805</span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><b><a href="#cite_ref-12">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://drdobbs.com/high-performance-computing/229400239">V. J. Duvanenko, "Parallel Merge Sort", Dr. Dobb's Journal, March 2011</a></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><b><a href="#cite_ref-13">^</a></b></span> <span class="reference-text"><cite id="CITEREFCole1988" class="citation journal">Cole, Richard (August 1988). "Parallel merge sort". <i>SIAM J. Comput</i>. <b>17</b> (4): 770–785. <a href="/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="//dx.doi.org/10.1137%2F0217049">10.1137/0217049</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Parallel+merge+sort&amp;rft.aufirst=Richard&amp;rft.aulast=Cole&amp;rft.date=1988-08&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1137%2F0217049&amp;rft.issue=4&amp;rft.jtitle=SIAM+J.+Comput.&amp;rft.pages=770-785&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=17" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><b><a href="#cite_ref-14">^</a></b></span> <span class="reference-text">Powers, David M. W. <a rel="nofollow" class="external text" href="http://citeseer.ist.psu.edu/327487.html">Parallelized Quicksort and Radixsort with Optimal Speedup</a>, <i>Proceedings of International Conference on Parallel Computing Technologies</i>. <a href="/wiki/Novosibirsk" title="Novosibirsk">Novosibirsk</a>. 1991.</span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><b><a href="#cite_ref-15">^</a></b></span> <span class="reference-text">David M. W. Powers, <a rel="nofollow" class="external text" href="http://david.wardpowers.info/Research/AI/papers/199501-ACAW-PUPC.pdf">Parallel Unification: Practical Complexity</a>, Australasian Computer Architecture Workshop, Flinders University, January 1995</span></li>
+<li id="cite_note-16"><span class="mw-cite-backlink"><b><a href="#cite_ref-16">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://openjdk.dev.java.net/source/browse/openjdk/jdk/trunk/jdk/src/share/classes/java/util/Arrays.java?view=markup">OpenJDK Subversion</a></span></li>
+<li id="cite_note-17"><span class="mw-cite-backlink"><b><a href="#cite_ref-17">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/lib/list_sort.c">linux kernel /lib/list_sort.c</a></span></li>
+<li id="cite_note-18"><span class="mw-cite-backlink"><b><a href="#cite_ref-18">^</a></b></span> <span class="reference-text"><cite class="citation web">jjb. <a rel="nofollow" class="external text" href="http://hg.openjdk.java.net/jdk7/tl/jdk/rev/bfd7abda8f79">"Commit 6804124: Replace "modified mergesort" in java.util.Arrays.sort with timsort"</a>. <i>Java Development Kit 7 Hg repo</i><span class="reference-accessdate">. Retrieved <span class="nowrap">24 Feb</span> 2011</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Commit+6804124%3A+Replace+%22modified+mergesort%22+in+java.util.Arrays.sort+with+timsort&amp;rft.au=jjb&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fhg.openjdk.java.net%2Fjdk7%2Ftl%2Fjdk%2Frev%2Fbfd7abda8f79&amp;rft.jtitle=Java+Development+Kit+7+Hg+repo&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-19"><span class="mw-cite-backlink"><b><a href="#cite_ref-19">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="https://web.archive.org/web/20150120063131/https://android.googlesource.com/platform/libcore/+/jb-mr2-release/luni/src/main/java/java/util/TimSort.java">"Class: java.util.TimSort&lt;T&gt;"</a>. <i>Android JDK Documentation</i>. Archived from <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/libcore/+/jb-mr2-release/luni/src/main/java/java/util/TimSort.java">the original</a> on January 20, 2015<span class="reference-accessdate">. Retrieved <span class="nowrap">19 Jan</span> 2015</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Class%3A+java.util.TimSort%3CT%3E&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fandroid.googlesource.com%2Fplatform%2Flibcore%2F%2B%2Fjb-mr2-release%2Fluni%2Fsrc%2Fmain%2Fjava%2Fjava%2Futil%2FTimSort.java&amp;rft.jtitle=Android+JDK+Documentation&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-20"><span class="mw-cite-backlink"><b><a href="#cite_ref-20">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://hg.savannah.gnu.org/hgweb/octave/file/0486a29d780f/liboctave/util/oct-sort.cc">"liboctave/util/oct-sort.cc"</a>. <i>Mercurial repository of Octave source code</i>. Lines 23-25 of the initial comment block<span class="reference-accessdate">. Retrieved <span class="nowrap">18 Feb</span> 2013</span>. <q>Code stolen in large part from Python's, listobject.c, which itself had no license header. However, thanks to <a href="/w/index.php?title=Tim_Peters_(software_engineer)&amp;action=edit&amp;redlink=1" class="new" title="Tim Peters (software engineer) (page does not exist)">Tim Peters</a> for the parts of the code I ripped-off.</q></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=liboctave%2Futil%2Foct-sort.cc&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fhg.savannah.gnu.org%2Fhgweb%2Foctave%2Ffile%2F0486a29d780f%2Fliboctave%2Futil%2Foct-sort.cc&amp;rft.jtitle=Mercurial+repository+of+Octave+source+code&amp;rft.pages=Lines+23-25+of+the+initial+comment+block.&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=14" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite id="CITEREFCormenLeisersonRivestStein2009" class="citation book"><a href="/wiki/Thomas_H._Cormen" title="Thomas H. Cormen">Cormen, Thomas H.</a>; <a href="/wiki/Charles_E._Leiserson" title="Charles E. Leiserson">Leiserson, Charles E.</a>; <a href="/wiki/Ron_Rivest" title="Ron Rivest">Rivest, Ronald L.</a>; <a href="/wiki/Clifford_Stein" title="Clifford Stein">Stein, Clifford</a> (2009) [1990]. <i><a href="/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms">Introduction to Algorithms</a></i> (3rd ed.). MIT Press and McGraw-Hill. <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/0-262-03384-4" title="Special:BookSources/0-262-03384-4">0-262-03384-4</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.aufirst=Thomas+H.&amp;rft.aulast=Cormen&amp;rft.au=Leiserson%2C+Charles+E.&amp;rft.au=Rivest%2C+Ronald+L.&amp;rft.au=Stein%2C+Clifford&amp;rft.btitle=Introduction+to+Algorithms&amp;rft.date=2009&amp;rft.edition=3rd&amp;rft.genre=book&amp;rft.isbn=0-262-03384-4&amp;rft.pub=MIT+Press+and+McGraw-Hill&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+<li><cite id="CITEREFKatajainenPasanenTeuhola1996" class="citation news">Katajainen, Jyrki; Pasanen, Tomi; Teuhola, Jukka (1996). <a rel="nofollow" class="external text" href="http://www.diku.dk/hjemmesider/ansatte/jyrki/Paper/mergesort_NJC.ps">"Practical in-place mergesort"</a>. <i>Nordic Journal of Computing</i>. <b>3</b>. pp.&#160;27–40. <a href="/wiki/International_Standard_Serial_Number" title="International Standard Serial Number">ISSN</a>&#160;<a rel="nofollow" class="external text" href="//www.worldcat.org/issn/1236-6064">1236-6064</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2009-04-04</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Practical+in-place+mergesort&amp;rft.aufirst=Jyrki&amp;rft.aulast=Katajainen&amp;rft.au=Pasanen%2C+Tomi&amp;rft.au=Teuhola%2C+Jukka&amp;rft.date=1996&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.diku.dk%2Fhjemmesider%2Fansatte%2Fjyrki%2FPaper%2Fmergesort_NJC.ps&amp;rft.issn=1236-6064&amp;rft.jtitle=Nordic+Journal+of+Computing&amp;rft.pages=27-40&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=3" class="Z3988"><span style="display:none;">&#160;</span></span>. Also <a rel="nofollow" class="external text" href="http://citeseer.ist.psu.edu/katajainen96practical.html">Practical In-Place Mergesort</a>. Also <a rel="nofollow" class="external autonumber" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.8523">[1]</a></li>
+<li><cite id="CITEREFKnuth1998" class="citation book"><a href="/wiki/Donald_Knuth" title="Donald Knuth">Knuth, Donald</a> (1998). "Section 5.2.4: Sorting by Merging". <i>Sorting and Searching</i>. <a href="/wiki/The_Art_of_Computer_Programming" title="The Art of Computer Programming">The Art of Computer Programming</a>. <b>3</b> (2nd ed.). Addison-Wesley. pp.&#160;158–168. <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/0-201-89685-0" title="Special:BookSources/0-201-89685-0">0-201-89685-0</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Section+5.2.4%3A+Sorting+by+Merging&amp;rft.aufirst=Donald&amp;rft.aulast=Knuth&amp;rft.btitle=Sorting+and+Searching&amp;rft.date=1998&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.isbn=0-201-89685-0&amp;rft.pages=158-168&amp;rft.pub=Addison-Wesley&amp;rft.series=The+Art+of+Computer+Programming&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+<li><cite id="CITEREFKronrod1969" class="citation news">Kronrod, M. A. (1969). "Optimal ordering algorithm without operational field". <i>Soviet Mathematics - Doklady</i>. <b>10</b>. p.&#160;744.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=Optimal+ordering+algorithm+without+operational+field&amp;rft.aufirst=M.+A.&amp;rft.aulast=Kronrod&amp;rft.date=1969&amp;rft.genre=article&amp;rft.jtitle=Soviet+Mathematics+-+Doklady&amp;rft.pages=744&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=10" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+<li><cite id="CITEREFLaMarcaLadner1997" class="citation journal">LaMarca, A.; Ladner, R. E. (1997). "The influence of caches on the performance of sorting". <i>Proc. 8th Ann. ACM-SIAM Symp. on Discrete Algorithms (SODA97)</i>: 370–379.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.atitle=The+influence+of+caches+on+the+performance+of+sorting&amp;rft.aufirst=A.&amp;rft.au=Ladner%2C+R.+E.&amp;rft.aulast=LaMarca&amp;rft.date=1997&amp;rft.genre=article&amp;rft.jtitle=Proc.+8th+Ann.+ACM-SIAM+Symp.+on+Discrete+Algorithms+%28SODA97%29&amp;rft.pages=370-379&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+<li><cite class="citation web">Sun Microsystems. <a rel="nofollow" class="external text" href="http://java.sun.com/javase/6/docs/api/java/util/Arrays.html">"Arrays API"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2007-11-19</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.au=Sun+Microsystems&amp;rft.btitle=Arrays+API&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fjava.sun.com%2Fjavase%2F6%2Fdocs%2Fapi%2Fjava%2Futil%2FArrays.html&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+<li><cite class="citation web">Sun Microsystems. <a rel="nofollow" class="external text" href="https://openjdk.dev.java.net/source/browse/openjdk/jdk/trunk/jdk/src/share/classes/java/util/Arrays.java?view=markup">"java.util.Arrays.java"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2007-11-19</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMerge+sort&amp;rft.au=Sun+Microsystems&amp;rft.btitle=java.util.Arrays.java&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fopenjdk.dev.java.net%2Fsource%2Fbrowse%2Fopenjdk%2Fjdk%2Ftrunk%2Fjdk%2Fsrc%2Fshare%2Fclasses%2Fjava%2Futil%2FArrays.java%3Fview%3Dmarkup&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Merge_sort&amp;action=edit&amp;section=15" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table role="presentation" class="mbox-small plainlinks sistersitebox" style="background-color:#f9f9f9;border:1px solid #aaa;color:#000">
+<tr>
+<td class="mbox-image"><a href="/wiki/File:Wikibooks-logo-en-noslogan.svg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/40px-Wikibooks-logo-en-noslogan.svg.png" width="40" height="40" class="noviewer" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/60px-Wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/80px-Wikibooks-logo-en-noslogan.svg.png 2x" data-file-width="400" data-file-height="400" /></a></td>
+<td class="mbox-text plainlist">The Wikibook <i><a href="https://en.wikibooks.org/wiki/Algorithm_implementation" class="extiw" title="wikibooks:Algorithm implementation">Algorithm implementation</a></i> has a page on the topic of: <i><b><a href="https://en.wikibooks.org/wiki/Algorithm_implementation/Sorting/Merge_sort" class="extiw" title="wikibooks:Algorithm implementation/Sorting/Merge sort">Merge sort</a></b></i></td>
+</tr>
+</table>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://web.archive.org/web/20150306071601/http://www.sorting-algorithms.com/merge-sort">Animated Sorting Algorithms: Merge Sort</a> at the <a href="/wiki/Wayback_Machine" title="Wayback Machine">Wayback Machine</a> (archived 6 March 2015) – graphical demonstration</li>
+<li><a rel="nofollow" class="external text" href="https://xlinux.nist.gov/dads/HTML/mergesort.html">Dictionary of Algorithms and Data Structures: Merge sort</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.yorku.ca/sychen/research/sorting/index.html">Mergesort applet</a> with "level-order" recursive calls to help improve algorithm analysis</li>
+<li><a rel="nofollow" class="external text" href="http://opendatastructures.org/versions/edition-0.1e/ods-java/11_1_Comparison_Based_Sorti.html#SECTION001411000000000000000">Open Data Structures - Section 11.1.1 - Merge Sort</a></li>
+</ul>
+<div role="navigation" class="navbox" aria-labelledby="Sorting_algorithms" style="padding:3px">
+<table class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit">
+<tr>
+<th scope="col" class="navbox-title" colspan="2">
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="/wiki/Template:Sorting" title="Template:Sorting"><abbr title="View this template" style=";;background:none transparent;border:none;">v</abbr></a></li>
+<li class="nv-talk"><a href="/wiki/Template_talk:Sorting" title="Template talk:Sorting"><abbr title="Discuss this template" style=";;background:none transparent;border:none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="//en.wikipedia.org/w/index.php?title=Template:Sorting&amp;action=edit"><abbr title="Edit this template" style=";;background:none transparent;border:none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="Sorting_algorithms" style="font-size:114%;margin:0 4em"><a href="/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithms</a></div>
+</th>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Theory</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Computational_complexity_theory" title="Computational complexity theory">Computational complexity theory</a></li>
+<li><a href="/wiki/Big_O_notation" title="Big O notation">Big O notation</a></li>
+<li><a href="/wiki/Total_order" title="Total order">Total order</a></li>
+<li><a href="/wiki/List_(computing)" class="mw-redirect" title="List (computing)">Lists</a></li>
+<li><a href="/wiki/In-place_algorithm" title="In-place algorithm">Inplacement</a></li>
+<li><a href="/wiki/Sorting_algorithm#Stability" title="Sorting algorithm">Stability</a></li>
+<li><a href="/wiki/Comparison_sort" title="Comparison sort">Comparison sort</a></li>
+<li><a href="/wiki/Adaptive_sort" title="Adaptive sort">Adaptive sort</a></li>
+<li><a href="/wiki/Sorting_network" title="Sorting network">Sorting network</a></li>
+<li><a href="/wiki/Integer_sorting" title="Integer sorting">Integer sorting</a></li>
+<li><a href="/wiki/X_%2B_Y_sorting" title="X + Y sorting">X + Y sorting</a></li>
+<li><a href="/wiki/Transdichotomous_model" title="Transdichotomous model">Transdichotomous model</a></li>
+<li><a href="/wiki/Quantum_sort" title="Quantum sort">Quantum sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Exchange sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Bubble_sort" title="Bubble sort">Bubble sort</a></li>
+<li><a href="/wiki/Cocktail_shaker_sort" title="Cocktail shaker sort">Cocktail shaker sort</a></li>
+<li><a href="/wiki/Odd%E2%80%93even_sort" title="Odd–even sort">Odd–even sort</a></li>
+<li><a href="/wiki/Comb_sort" title="Comb sort">Comb sort</a></li>
+<li><a href="/wiki/Gnome_sort" title="Gnome sort">Gnome sort</a></li>
+<li><a href="/wiki/Quicksort" title="Quicksort">Quicksort</a></li>
+<li><a href="/wiki/Slowsort" title="Slowsort">Slowsort</a></li>
+<li><a href="/wiki/Stooge_sort" title="Stooge sort">Stooge sort</a></li>
+<li><a href="/wiki/Bogosort" title="Bogosort">Bogosort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="/wiki/Selection_algorithm" title="Selection algorithm">Selection sorts</a></th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Selection_sort" title="Selection sort">Selection sort</a></li>
+<li><a href="/wiki/Heapsort" title="Heapsort">Heapsort</a></li>
+<li><a href="/wiki/Smoothsort" title="Smoothsort">Smoothsort</a></li>
+<li><a href="/wiki/Cartesian_tree#Application_in_sorting" title="Cartesian tree">Cartesian tree sort</a></li>
+<li><a href="/wiki/Tournament_sort" title="Tournament sort">Tournament sort</a></li>
+<li><a href="/wiki/Cycle_sort" title="Cycle sort">Cycle sort</a></li>
+<li><a href="/wiki/Weak_heap" title="Weak heap">Weak heapsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Insertion sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Insertion_sort" title="Insertion sort">Insertion sort</a></li>
+<li><a href="/wiki/Shellsort" title="Shellsort">Shellsort</a></li>
+<li><a href="/wiki/Splaysort" title="Splaysort">Splaysort</a></li>
+<li><a href="/wiki/Tree_sort" title="Tree sort">Tree sort</a></li>
+<li><a href="/wiki/Library_sort" title="Library sort">Library sort</a></li>
+<li><a href="/wiki/Patience_sorting" title="Patience sorting">Patience sorting</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Merge sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><strong class="selflink">Merge sort</strong></li>
+<li><a href="/wiki/Cascade_merge_sort" title="Cascade merge sort">Cascade merge sort</a></li>
+<li><a href="/wiki/Oscillating_merge_sort" title="Oscillating merge sort">Oscillating merge sort</a></li>
+<li><a href="/wiki/Polyphase_merge_sort" title="Polyphase merge sort">Polyphase merge sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Distribution sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/American_flag_sort" title="American flag sort">American flag sort</a></li>
+<li><a href="/wiki/Bead_sort" title="Bead sort">Bead sort</a></li>
+<li><a href="/wiki/Bucket_sort" title="Bucket sort">Bucket sort</a></li>
+<li><a href="/wiki/Burstsort" title="Burstsort">Burstsort</a></li>
+<li><a href="/wiki/Counting_sort" title="Counting sort">Counting sort</a></li>
+<li><a href="/wiki/Pigeonhole_sort" title="Pigeonhole sort">Pigeonhole sort</a></li>
+<li><a href="/wiki/Proxmap_sort" title="Proxmap sort">Proxmap sort</a></li>
+<li><a href="/wiki/Radix_sort" title="Radix sort">Radix sort</a></li>
+<li><a href="/wiki/Flashsort" title="Flashsort">Flashsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Concurrent sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Bitonic_sorter" title="Bitonic sorter">Bitonic sorter</a></li>
+<li><a href="/wiki/Batcher_odd%E2%80%93even_mergesort" title="Batcher odd–even mergesort">Batcher odd–even mergesort</a></li>
+<li><a href="/wiki/Pairwise_sorting_network" title="Pairwise sorting network">Pairwise sorting network</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="/wiki/Hybrid_algorithm" title="Hybrid algorithm">Hybrid sorts</a></th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Block_sort" title="Block sort">Block merge sort</a></li>
+<li><a href="/wiki/Timsort" title="Timsort">Timsort</a></li>
+<li><a href="/wiki/Introsort" title="Introsort">Introsort</a></li>
+<li><a href="/wiki/Spreadsort" title="Spreadsort">Spreadsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Topological_sorting" title="Topological sorting">Topological sorting</a></li>
+<li><a href="/wiki/Pancake_sorting" title="Pancake sorting">Pancake sorting</a></li>
+<li><a href="/wiki/Spaghetti_sort" title="Spaghetti sort">Spaghetti sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1222
+Cached time: 20170326135805
+Cache expiry: 2592000
+Dynamic content: false
+CPU time usage: 0.252 seconds
+Real time usage: 0.351 seconds
+Preprocessor visited node count: 2098/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 62006/2097152 bytes
+Template argument size: 2617/2097152 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 4/500
+Lua time usage: 0.118/10.000 seconds
+Lua memory usage: 4.57 MB/50 MB
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  260.895      1 -total
+ 31.17%   81.332      1 Template:Reflist
+ 16.08%   41.964      6 Template:Cite_journal
+ 14.69%   38.323      3 Template:Fix
+ 13.60%   35.480      1 Template:Original_research
+ 11.18%   29.177      2 Template:Citation_needed
+  9.17%   23.926      1 Template:Ambox
+  9.10%   23.754      3 Template:Delink
+  8.77%   22.881      1 Template:Infobox_Algorithm
+  7.83%   20.433      1 Template:Infobox
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:20039-0!*!0!!en!4!*!math=5 and timestamp 20170326135811 and revision id 772302381
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Merge_sort&amp;oldid=772302381">https://en.wikipedia.org/w/index.php?title=Merge_sort&amp;oldid=772302381</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="/wiki/Category:Sorting_algorithms" title="Category:Sorting algorithms">Sorting algorithms</a></li><li><a href="/wiki/Category:Comparison_sorts" title="Category:Comparison sorts">Comparison sorts</a></li><li><a href="/wiki/Category:Stable_sorts" title="Category:Stable sorts">Stable sorts</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:Pages_using_citations_with_accessdate_and_no_URL" title="Category:Pages using citations with accessdate and no URL">Pages using citations with accessdate and no URL</a></li><li><a href="/wiki/Category:Articles_with_inconsistent_citation_formats" title="Category:Articles with inconsistent citation formats">Articles with inconsistent citation formats</a></li><li><a href="/wiki/Category:Articles_that_may_contain_original_research_from_May_2016" title="Category:Articles that may contain original research from May 2016">Articles that may contain original research from May 2016</a></li><li><a href="/wiki/Category:All_articles_that_may_contain_original_research" title="Category:All articles that may contain original research">All articles that may contain original research</a></li><li><a href="/wiki/Category:Pages_using_deprecated_image_syntax" title="Category:Pages using deprecated image syntax">Pages using deprecated image syntax</a></li><li><a href="/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="/wiki/Category:Articles_with_unsourced_statements_from_June_2008" title="Category:Articles with unsourced statements from June 2008">Articles with unsourced statements from June 2008</a></li><li><a href="/wiki/Category:Wikipedia_articles_needing_clarification_from_August_2016" title="Category:Wikipedia articles needing clarification from August 2016">Wikipedia articles needing clarification from August 2016</a></li><li><a href="/wiki/Category:Articles_with_unsourced_statements_from_March_2014" title="Category:Articles with unsourced statements from March 2014">Articles with unsourced statements from March 2014</a></li><li><a href="/wiki/Category:Webarchive_template_wayback_links" title="Category:Webarchive template wayback links">Webarchive template wayback links</a></li><li><a href="/wiki/Category:Articles_with_example_pseudocode" title="Category:Articles with example pseudocode">Articles with example pseudocode</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="/wiki/Special:MyTalk" title="Discussion about edits from this IP address [n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="/wiki/Special:MyContributions" title="A list of edits made from this IP address [y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="/w/index.php?title=Special:CreateAccount&amp;returnto=Merge+sort" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Merge+sort" title="You're encouraged to log in; however, it's not mandatory. [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Merge_sort"  title="View the content page [c]" accesskey="c">Article</a></span></li>
+															<li  id="ca-talk"><span><a href="/wiki/Talk:Merge_sort"  title="Discussion about the content page [t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span><a href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="/wiki/Merge_sort" >Read</a></span></li>
+															<li id="ca-edit"><span><a href="/w/index.php?title=Merge_sort&amp;action=edit"  title="Edit this page [e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Merge_sort&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span><a href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Wikipedia" title="Search Wikipedia [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search Wikipedia for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="//shop.wikimedia.org" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-interaction' aria-labelledby='p-interaction-label'>
+			<h3 id='p-interaction-label'>Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Merge_sort" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Merge_sort" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="/w/index.php?title=Merge_sort&amp;oldid=772302381" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/w/index.php?title=Merge_sort&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q189057" title="Link to connected data repository item [g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="/w/index.php?title=Special:CiteThisPage&amp;page=Merge_sort&amp;id=772302381" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-coll-print_export' aria-labelledby='p-coll-print_export-label'>
+			<h3 id='p-coll-print_export-label'>Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Merge+sort">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Merge+sort&amp;returnto=Merge+sort&amp;oldid=772302381&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="/w/index.php?title=Merge_sort&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-lang' aria-labelledby='p-lang-label'>
+			<h3 id='p-lang-label'>Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-ar"><a href="https://ar.wikipedia.org/wiki/%D8%AA%D8%B5%D9%86%D9%8A%D9%81_%D8%AF%D9%85%D8%AC%D9%8A" title="تصنيف دمجي – Arabic" lang="ar" hreflang="ar" class="interlanguage-link-target">العربية</a></li><li class="interlanguage-link interwiki-bg"><a href="https://bg.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%B0%D0%BD%D0%B5_%D1%87%D1%80%D0%B5%D0%B7_%D1%81%D0%BB%D0%B8%D0%B2%D0%B0%D0%BD%D0%B5" title="Сортиране чрез сливане – Bulgarian" lang="bg" hreflang="bg" class="interlanguage-link-target">Български</a></li><li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/Merge_sort" title="Merge sort – Czech" lang="cs" hreflang="cs" class="interlanguage-link-target">Čeština</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Mergesort" title="Mergesort – German" lang="de" hreflang="de" class="interlanguage-link-target">Deutsch</a></li><li class="interlanguage-link interwiki-et"><a href="https://et.wikipedia.org/wiki/Mestimissortimine" title="Mestimissortimine – Estonian" lang="et" hreflang="et" class="interlanguage-link-target">Eesti</a></li><li class="interlanguage-link interwiki-el"><a href="https://el.wikipedia.org/wiki/%CE%A4%CE%B1%CE%BE%CE%B9%CE%BD%CF%8C%CE%BC%CE%B7%CF%83%CE%B7_%CE%BC%CE%B5_%CF%83%CF%85%CE%B3%CF%87%CF%8E%CE%BD%CE%B5%CF%85%CF%83%CE%B7" title="Ταξινόμηση με συγχώνευση – Greek" lang="el" hreflang="el" class="interlanguage-link-target">Ελληνικά</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Ordenamiento_por_mezcla" title="Ordenamiento por mezcla – Spanish" lang="es" hreflang="es" class="interlanguage-link-target">Español</a></li><li class="interlanguage-link interwiki-eo"><a href="https://eo.wikipedia.org/wiki/Kunfanda_ordigo" title="Kunfanda ordigo – Esperanto" lang="eo" hreflang="eo" class="interlanguage-link-target">Esperanto</a></li><li class="interlanguage-link interwiki-fa"><a href="https://fa.wikipedia.org/wiki/%D9%85%D8%B1%D8%AA%D8%A8%E2%80%8C%D8%B3%D8%A7%D8%B2%DB%8C_%D8%A7%D8%AF%D8%BA%D8%A7%D9%85%DB%8C" title="مرتب‌سازی ادغامی – Persian" lang="fa" hreflang="fa" class="interlanguage-link-target">فارسی</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/Tri_fusion" title="Tri fusion – French" lang="fr" hreflang="fr" class="interlanguage-link-target">Français</a></li><li class="interlanguage-link interwiki-ko"><a href="https://ko.wikipedia.org/wiki/%ED%95%A9%EB%B3%91_%EC%A0%95%EB%A0%AC" title="합병 정렬 – Korean" lang="ko" hreflang="ko" class="interlanguage-link-target">한국어</a></li><li class="interlanguage-link interwiki-hy"><a href="https://hy.wikipedia.org/wiki/%D5%84%D5%AB%D5%A1%D5%B1%D5%B8%D6%82%D5%AC%D5%B4%D5%A1%D5%B6_%D5%BF%D5%A5%D5%BD%D5%A1%D5%AF%D5%A1%D5%BE%D5%B8%D6%80%D5%B8%D6%82%D5%B4" title="Միաձուլման տեսակավորում – Armenian" lang="hy" hreflang="hy" class="interlanguage-link-target">Հայերեն</a></li><li class="interlanguage-link interwiki-id"><a href="https://id.wikipedia.org/wiki/Urut_gabung" title="Urut gabung – Indonesian" lang="id" hreflang="id" class="interlanguage-link-target">Bahasa Indonesia</a></li><li class="interlanguage-link interwiki-is"><a href="https://is.wikipedia.org/wiki/Sameiningarr%C3%B6%C3%B0un" title="Sameiningarröðun – Icelandic" lang="is" hreflang="is" class="interlanguage-link-target">Íslenska</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Merge_sort" title="Merge sort – Italian" lang="it" hreflang="it" class="interlanguage-link-target">Italiano</a></li><li class="interlanguage-link interwiki-he"><a href="https://he.wikipedia.org/wiki/%D7%9E%D7%99%D7%95%D7%9F_%D7%9E%D7%99%D7%96%D7%95%D7%92" title="מיון מיזוג – Hebrew" lang="he" hreflang="he" class="interlanguage-link-target">עברית</a></li><li class="interlanguage-link interwiki-kk"><a href="https://kk.wikipedia.org/wiki/%D0%A2%D0%BE%D2%93%D1%8B%D1%81%D1%82%D1%8B%D1%80%D1%83_%D0%B0%D1%80%D2%9B%D1%8B%D0%BB%D1%8B_%D1%81%D2%B1%D1%80%D1%8B%D0%BF%D1%82%D0%B0%D1%83" title="Тоғыстыру арқылы сұрыптау – Kazakh" lang="kk" hreflang="kk" class="interlanguage-link-target">Қазақша</a></li><li class="interlanguage-link interwiki-lb"><a href="https://lb.wikipedia.org/wiki/Mergesort" title="Mergesort – Luxembourgish" lang="lb" hreflang="lb" class="interlanguage-link-target">Lëtzebuergesch</a></li><li class="interlanguage-link interwiki-lt"><a href="https://lt.wikipedia.org/wiki/S%C4%85lajos_rikiavimo_algoritmas" title="Sąlajos rikiavimo algoritmas – Lithuanian" lang="lt" hreflang="lt" class="interlanguage-link-target">Lietuvių</a></li><li class="interlanguage-link interwiki-ml"><a href="https://ml.wikipedia.org/wiki/%E0%B4%AE%E0%B5%86%E0%B5%BC%E0%B4%9C%E0%B5%8D_%E0%B4%B8%E0%B5%8B%E0%B5%BC%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D" title="മെർജ് സോർട്ട് – Malayalam" lang="ml" hreflang="ml" class="interlanguage-link-target">മലയാളം</a></li><li class="interlanguage-link interwiki-nl"><a href="https://nl.wikipedia.org/wiki/Mergesort" title="Mergesort – Dutch" lang="nl" hreflang="nl" class="interlanguage-link-target">Nederlands</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%BC%E3%82%B8%E3%82%BD%E3%83%BC%E3%83%88" title="マージソート – Japanese" lang="ja" hreflang="ja" class="interlanguage-link-target">日本語</a></li><li class="interlanguage-link interwiki-no"><a href="https://no.wikipedia.org/wiki/Flettesortering" title="Flettesortering – Norwegian" lang="no" hreflang="no" class="interlanguage-link-target">Norsk bokmål</a></li><li class="interlanguage-link interwiki-pl"><a href="https://pl.wikipedia.org/wiki/Sortowanie_przez_scalanie" title="Sortowanie przez scalanie – Polish" lang="pl" hreflang="pl" class="interlanguage-link-target">Polski</a></li><li class="interlanguage-link interwiki-pt"><a href="https://pt.wikipedia.org/wiki/Merge_sort" title="Merge sort – Portuguese" lang="pt" hreflang="pt" class="interlanguage-link-target">Português</a></li><li class="interlanguage-link interwiki-ro"><a href="https://ro.wikipedia.org/wiki/Merge_sort" title="Merge sort – Romanian" lang="ro" hreflang="ro" class="interlanguage-link-target">Română</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0_%D1%81%D0%BB%D0%B8%D1%8F%D0%BD%D0%B8%D0%B5%D0%BC" title="Сортировка слиянием – Russian" lang="ru" hreflang="ru" class="interlanguage-link-target">Русский</a></li><li class="interlanguage-link interwiki-sk"><a href="https://sk.wikipedia.org/wiki/Triedenie_zlu%C4%8Dovan%C3%ADm" title="Triedenie zlučovaním – Slovak" lang="sk" hreflang="sk" class="interlanguage-link-target">Slovenčina</a></li><li class="interlanguage-link interwiki-sl"><a href="https://sl.wikipedia.org/wiki/Urejanje_z_zlivanjem" title="Urejanje z zlivanjem – Slovenian" lang="sl" hreflang="sl" class="interlanguage-link-target">Slovenščina</a></li><li class="interlanguage-link interwiki-sr"><a href="https://sr.wikipedia.org/wiki/Sortiranje_spajanjem" title="Sortiranje spajanjem – Serbian" lang="sr" hreflang="sr" class="interlanguage-link-target">Српски / srpski</a></li><li class="interlanguage-link interwiki-fi"><a href="https://fi.wikipedia.org/wiki/Lomituslajittelu" title="Lomituslajittelu – Finnish" lang="fi" hreflang="fi" class="interlanguage-link-target">Suomi</a></li><li class="interlanguage-link interwiki-th"><a href="https://th.wikipedia.org/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A5%E0%B8%B3%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%9C%E0%B8%AA%E0%B8%B2%E0%B8%99" title="การเรียงลำดับแบบผสาน – Thai" lang="th" hreflang="th" class="interlanguage-link-target">ไทย</a></li><li class="interlanguage-link interwiki-tr"><a href="https://tr.wikipedia.org/wiki/Birle%C5%9Ftirmeli_s%C4%B1ralama" title="Birleştirmeli sıralama – Turkish" lang="tr" hreflang="tr" class="interlanguage-link-target">Türkçe</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%D0%B7%D0%BB%D0%B8%D1%82%D1%82%D1%8F%D0%BC" title="Сортування злиттям – Ukrainian" lang="uk" hreflang="uk" class="interlanguage-link-target">Українська</a></li><li class="interlanguage-link interwiki-vi"><a href="https://vi.wikipedia.org/wiki/S%E1%BA%AFp_x%E1%BA%BFp_tr%E1%BB%99n" title="Sắp xếp trộn – Vietnamese" lang="vi" hreflang="vi" class="interlanguage-link-target">Tiếng Việt</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F" title="归并排序 – Chinese" lang="zh" hreflang="zh" class="interlanguage-link-target">中文</a></li>					</ul>
+				<div class='after-portlet after-portlet-lang'><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q189057#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 26 March 2017, at 13:58.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="//en.m.wikipedia.org/w/index.php?title=Merge_sort&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="/static/images/wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"/></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/static/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.252","walltime":"0.351","ppvisitednodes":{"value":2098,"limit":1000000},"ppgeneratednodes":{"value":0,"limit":1500000},"postexpandincludesize":{"value":62006,"limit":2097152},"templateargumentsize":{"value":2617,"limit":2097152},"expansiondepth":{"value":11,"limit":40},"expensivefunctioncount":{"value":4,"limit":500},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  260.895      1 -total"," 31.17%   81.332      1 Template:Reflist"," 16.08%   41.964      6 Template:Cite_journal"," 14.69%   38.323      3 Template:Fix"," 13.60%   35.480      1 Template:Original_research"," 11.18%   29.177      2 Template:Citation_needed","  9.17%   23.926      1 Template:Ambox","  9.10%   23.754      3 Template:Delink","  8.77%   22.881      1 Template:Infobox_Algorithm","  7.83%   20.433      1 Template:Infobox"]},"scribunto":{"limitreport-timeusage":{"value":"0.118","limit":"10.000"},"limitreport-memusage":{"value":4790239,"limit":52428800}},"cachereport":{"origin":"mw1222","timestamp":"20170326135805","ttl":2592000,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":60,"wgHostname":"mw1239"});});</script>
+	</body>
+</html>

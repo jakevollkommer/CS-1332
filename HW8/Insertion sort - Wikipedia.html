@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Insertion sort - Wikipedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Insertion_sort","wgTitle":"Insertion sort","wgCurRevisionId":770857101,"wgRevisionId":770857101,"wgArticleId":15205,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages using deprecated image syntax","All articles with unsourced statements","Articles with unsourced statements from September 2014","Articles with unsourced statements from September 2011","Webarchive template wayback links","Articles with example pseudocode","Sorting algorithms","Comparison sorts","Stable sorts","Online sorts"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Insertion_sort","wgRelevantArticleId":15205,"wgRequestId":"WNe3QQpAIC8AAHrkOOwAAAAQ","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{}},"wgStableRevisionId":null,"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":false,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":true},"wgRelatedArticles":null,"wgRelatedArticlesBetaFeatureEnabled":false,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q117241","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.cite.styles":"ready","ext.pygments":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options@0j3lz3q",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens@1dqfd7l",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["ext.cite.a11y","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.legacy.wikibits","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interface","ext.quicksurveys.init","ext.centralNotice.geoIP","ext.centralNotice.startUp","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=ext.cite.styles%7Cext.pygments%2CwikimediaBadges%7Cext.uls.interlanguage%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles%7Cwikibase.client.init&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/w/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.29.0-wmf.17"/>
+<meta name="referrer" content="origin-when-cross-origin"/>
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/7/7e/Insertionsort-edited.png"/>
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Insertion_sort"/>
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Insertion_sort&amp;action=edit"/>
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Insertion_sort&amp;action=edit"/>
+<link rel="apple-touch-icon" href="/static/apple-touch/wikipedia.png"/>
+<link rel="shortcut icon" href="/static/favicon/wikipedia.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd"/>
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/"/>
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Insertion_sort"/>
+<link rel="dns-prefetch" href="//login.wikimedia.org"/>
+<link rel="dns-prefetch" href="//meta.wikimedia.org" />
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Insertion_sort rootpage-Insertion_sort skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice" class="mw-body-content"><!-- CentralNotice --></div>
+						<div class="mw-indicators mw-body-content">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Insertion sort</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="infobox" style="width:22em">
+<caption>Insertion sort</caption>
+<tr>
+<td colspan="2" style="text-align:center">
+<div class="floatnone"><a href="/wiki/File:Insertionsort-edited.png" class="image" title="Example of insertion sort sorting a list of random numbers"><img alt="Example of insertion sort sorting a list of random numbers" src="//upload.wikimedia.org/wikipedia/commons/7/7e/Insertionsort-edited.png" width="280" height="250" data-file-width="280" data-file-height="250" /></a></div>
+<div>Graphical illustration of insertion sort<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup></div>
+</td>
+</tr>
+<tr>
+<th scope="row">Class</th>
+<td><a href="/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithm</a></td>
+</tr>
+<tr>
+<th scope="row">Data structure</th>
+<td><a href="/wiki/Array_data_structure" title="Array data structure">Array</a></td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case performance</a></th>
+<td>О(<i>n</i><sup>2</sup>) comparisons, swaps</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Best-case performance</a></th>
+<td>O(<i>n</i>) comparisons, O(<i>1</i>) swaps</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Average performance</a></th>
+<td>О(<i>n</i><sup>2</sup>) comparisons, swaps</td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case space complexity</a></th>
+<td>О(<i>n</i>) total, O(<i>1</i>) auxiliary</td>
+</tr>
+</table>
+<p><b>Insertion sort</b> is a simple <a href="/wiki/Sorting_algorithm" title="Sorting algorithm">sorting algorithm</a> that builds the final <a href="/wiki/Sorted_array" title="Sorted array">sorted array</a> (or list) one item at a time. It is much less efficient on large lists than more advanced algorithms such as <a href="/wiki/Quicksort" title="Quicksort">quicksort</a>, <a href="/wiki/Heapsort" title="Heapsort">heapsort</a>, or <a href="/wiki/Merge_sort" title="Merge sort">merge sort</a>. However, insertion sort provides several advantages:</p>
+<ul>
+<li>Simple implementation: <a href="/wiki/Jon_Bentley_(computer_scientist)" title="Jon Bentley (computer scientist)">Jon Bentley</a> shows a three-line <a href="/wiki/C_(programming_language)" title="C (programming language)">C</a> version, and a five-line <a href="/wiki/Program_optimization" title="Program optimization">optimized</a> version<sup id="cite_ref-pearls_2-0" class="reference"><a href="#cite_note-pearls-2">[2]</a></sup><sup class="reference" style="white-space:nowrap;">:116</sup></li>
+<li>Efficient for (quite) small data sets, much like other quadratic sorting algorithms</li>
+<li>More efficient in practice than most other simple quadratic (i.e., <a href="/wiki/Big_O_notation" title="Big O notation">O</a>(<i>n</i><sup>2</sup>)) algorithms such as <a href="/wiki/Selection_sort" title="Selection sort">selection sort</a> or <a href="/wiki/Bubble_sort" title="Bubble sort">bubble sort</a></li>
+<li><a href="/wiki/Adaptive_sort" title="Adaptive sort">Adaptive</a>, i.e., efficient for data sets that are already substantially sorted: the <a href="/wiki/Time_complexity" title="Time complexity">time complexity</a> is <span class="texhtml"><i>O</i>(<i>nk</i>)</span> when each element in the input is no more than <span class="texhtml mvar" style="font-style:italic;">k</span> places away from its sorted position</li>
+<li><a href="/wiki/Stable_sort" class="mw-redirect" title="Stable sort">Stable</a>; i.e., does not change the relative order of elements with equal keys</li>
+<li><a href="/wiki/In-place_algorithm" title="In-place algorithm">In-place</a>; i.e., only requires a constant amount O(1) of additional memory space</li>
+<li><a href="/wiki/Online_algorithm" title="Online algorithm">Online</a>; i.e., can sort a list as it receives it</li>
+</ul>
+<p>When people manually sort cards in a bridge hand, most use a method that is similar to insertion sort.<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Algorithm_for_insertion_sort"><span class="tocnumber">1</span> <span class="toctext">Algorithm for insertion sort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Best.2C_worst.2C_and_average_cases"><span class="tocnumber">2</span> <span class="toctext">Best, worst, and average cases</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Relation_to_other_sorting_algorithms"><span class="tocnumber">3</span> <span class="toctext">Relation to other sorting algorithms</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Variants"><span class="tocnumber">4</span> <span class="toctext">Variants</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#List_insertion_sort_code_in_C"><span class="tocnumber">4.1</span> <span class="toctext">List insertion sort code in C</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Additional_reading"><span class="tocnumber">6</span> <span class="toctext">Additional reading</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#External_links"><span class="tocnumber">7</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Algorithm_for_insertion_sort">Algorithm for insertion sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=1" title="Edit section: Algorithm for insertion sort">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:302px;"><a href="/wiki/File:Insertion-sort-example-300px.gif" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif" width="300" height="180" class="thumbimage" data-file-width="300" data-file-height="180" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Insertion-sort-example-300px.gif" class="internal" title="Enlarge"></a></div>
+A graphical example of insertion sort.</div>
+</div>
+</div>
+<p>Insertion sort <a href="/wiki/Iteration" title="Iteration">iterates</a>, consuming one input element each repetition, and growing a sorted output list. Each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain.</p>
+<p>Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it. At each array-position, it checks the value there against the largest value in the sorted list (which happens to be next to it, in the previous array-position checked). If larger, it leaves the element in place and moves to the next. If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space, and inserts into that correct position.</p>
+<p>The resulting array after <i>k</i> iterations has the property where the first <i>k</i> + 1 entries are sorted ("+1" because the first entry is skipped). In each iteration the first remaining entry of the input is removed, and inserted into the result at the correct position, thus extending the result:</p>
+<p><a href="/wiki/File:Insertionsort-before.png" class="image" title="Array prior to the insertion of x"><img alt="Array prior to the insertion of x" src="//upload.wikimedia.org/wikipedia/commons/3/32/Insertionsort-before.png" width="299" height="54" data-file-width="299" data-file-height="54" /></a></p>
+<p>becomes</p>
+<p><a href="/wiki/File:Insertionsort-after.png" class="image" title="Array after the insertion of x"><img alt="Array after the insertion of x" src="//upload.wikimedia.org/wikipedia/commons/d/d9/Insertionsort-after.png" width="299" height="54" data-file-width="299" data-file-height="54" /></a></p>
+<p>with each element greater than <i>x</i> copied to the right as it is compared against <i>x</i>.</p>
+<p>The most common variant of insertion sort, which operates on arrays, can be described as follows:</p>
+<ol>
+<li>Suppose there exists a function called <i>Insert</i> designed to insert a value into a sorted sequence at the beginning of an array. It operates by beginning at the end of the sequence and shifting each element one place to the right until a suitable position is found for the new element. The function has the side effect of overwriting the value stored immediately after the sorted sequence in the array.</li>
+<li>To perform an insertion sort, begin at the left-most element of the array and invoke <i>Insert</i> to insert each element encountered into its correct position. The ordered sequence into which the element is inserted is stored at the beginning of the array in the set of indices already examined. Each insertion overwrites a single value: the value being inserted.</li>
+</ol>
+<p><a href="/wiki/Pseudocode" title="Pseudocode">Pseudocode</a> of the complete algorithm follows, where the arrays are <a href="/wiki/Zero-based_numbering" title="Zero-based numbering">zero-based</a>:<sup id="cite_ref-pearls_2-1" class="reference"><a href="#cite_note-pearls-2">[2]</a></sup><sup class="reference" style="white-space:nowrap;">:116</sup></p>
+<pre>
+<b>for</b> i = 1 <b>to</b> length(A)
+    j ← i
+    <b>while</b> j &gt; 0 and A[j-1] &gt; A[j]
+        <b>swap</b> A[j] and A[j-1]
+        j ← j - 1
+    <b>end while</b>
+<b>end for</b>
+</pre>
+<p>The outer loop runs over all the elements except the first one, because the single-element prefix <code>A[0:1]</code> is trivially sorted, so the <a href="/wiki/Invariant_(computer_science)" title="Invariant (computer science)">invariant</a> that the first <code>i+1</code> entries are sorted is true from the start. The inner loop moves element <code>A[i]</code> to its correct place so that after the loop, the first <code>i+2</code> elements are sorted.</p>
+<p>After expanding the "swap" operation in-place as <code>x ← A[j]; A[j] ← A[j-1]; A[j-1] ← x</code> (where <code>x</code> is a temporary variable), a slightly faster version can be produced that moves <code>A[i]</code> to its position in one go and only performs one assignment in the inner loop body:<sup id="cite_ref-pearls_2-2" class="reference"><a href="#cite_note-pearls-2">[2]</a></sup><sup class="reference" style="white-space:nowrap;">:116</sup></p>
+<pre>
+ <b>for</b> i = 1 <b>to</b> length(A)
+    x = A[i]
+    j = i - 1
+    <b>while</b> j &gt;= 0 and A[j] &gt; x
+        A[j+1] ← A[j]
+        j ← j - 1
+    <b>end while</b>
+    A[j+1] = x<sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup>
+ <b>end for</b>
+</pre>
+<p>The new inner loop shifts elements to the right to clear a spot for <code>x = A[i]</code>.</p>
+<p>Note that although the common practice is to implement in-place, which requires checking the elements in-order, the order of checking (and removing) input elements is actually arbitrary. The choice can be made using almost any pattern, as long as all input elements are eventually checked (and removed from the input).</p>
+<p>The algorithm can also be implemented in a recursive way. The idea is that to sort an array of <i>n</i> elements, <i>A[0..n-1]</i>, one first orders the subarray <i>A[0..n-2]</i> and then inserts the last element (with index <i>n-1</i>).</p>
+<pre>
+ <b>function</b> insertionSortR(array A, int n)
+     <b>if</b> n&gt;1
+        insertionSortR(A,n-1)
+        x = A[n]
+        j = n-1
+        <b>while</b> j &gt;= 0 <b>and</b> A[j] &gt; x
+            A[j+1] ← A[j]
+            j ← j-1
+        <b>end while</b>
+        A[j+1] = x
+     <b>end if</b>
+ <b>end function</b>
+</pre>
+<h2><span class="mw-headline" id="Best.2C_worst.2C_and_average_cases">Best, worst, and average cases</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=2" title="Edit section: Best, worst, and average cases">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:195px;"><a href="/wiki/File:Insertion_sort.gif" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/4/42/Insertion_sort.gif" width="193" height="302" class="thumbimage" data-file-width="193" data-file-height="302" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Insertion_sort.gif" class="internal" title="Enlarge"></a></div>
+Animation of the insertion sort sorting a 30 element array.</div>
+</div>
+</div>
+<p>The best case input is an array that is already sorted. In this case insertion sort has a linear running time (i.e., O(<i>n</i>)). During each iteration, the first remaining element of the input is only compared with the right-most element of the sorted subsection of the array.</p>
+<p>The simplest worst case input is an array sorted in reverse order. The set of all worst case inputs consists of all arrays where each element is the smallest or second-smallest of the elements before it. In these cases every iteration of the inner loop will scan and shift the entire sorted subsection of the array before inserting the next element. This gives insertion sort a quadratic running time (i.e., O(<i>n</i><sup>2</sup>)).</p>
+<p>The average case is also quadratic, which makes insertion sort impractical for sorting large arrays. However, insertion sort is one of the fastest algorithms for sorting very small arrays, even faster than <a href="/wiki/Quicksort" title="Quicksort">quicksort</a>; indeed, good <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> implementations use insertion sort for arrays smaller than a certain threshold, also when arising as subproblems; the exact threshold must be determined experimentally and depends on the machine, but is commonly around ten.</p>
+<p>Example: The following table shows the steps for sorting the sequence {3, 7, 4, 9, 5, 2, 6, 1}. In each step, the key under consideration is underlined. The key that was moved (or left in place because it was biggest yet considered) in the previous step is shown in bold.</p>
+<p><u>3</u> 7 4 9 5 2 6 1</p>
+<p><b>3</b> <u>7</u> 4 9 5 2 6 1</p>
+<p>3 <b>7</b> <u>4</u> 9 5 2 6 1</p>
+<p>3 <b>4</b> 7 <u>9</u> 5 2 6 1</p>
+<p>3 4 7 <b>9</b> <u>5</u> 2 6 1</p>
+<p>3 4 <b>5</b> 7 9 <u>2</u> 6 1</p>
+<p><b>2</b> 3 4 5 7 9 <u>6</u> 1</p>
+<p>2 3 4 5 <b>6</b> 7 9 <u>1</u></p>
+<p><b>1</b> 2 3 4 5 6 7 9</p>
+<h2><span class="mw-headline" id="Relation_to_other_sorting_algorithms">Relation to other sorting algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=3" title="Edit section: Relation to other sorting algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Insertion sort is very similar to <a href="/wiki/Selection_sort" title="Selection sort">selection sort</a>. As in selection sort, after <i>k</i> passes through the array, the first <i>k</i> elements are in sorted order. For selection sort these are the <i>k</i> smallest elements, while in insertion sort they are whatever the first <i>k</i> elements were in the unsorted array. Insertion sort's advantage is that it only scans as many elements as needed to determine the correct location of the <i>k</i>+1st element, while selection sort must scan all remaining elements to find the absolute smallest element.</p>
+<p>Assuming the <i>k</i>+1st element's rank is random, insertion sort will on average require shifting half of the previous <i>k</i> elements, while selection sort always requires scanning all unplaced elements. So for unsorted input, insertion sort will usually perform about half as many comparisons as selection sort. If the input array is reverse-sorted, insertion sort performs as many comparisons as selection sort. If the input array is already sorted, insertion sort performs as few as <i>n</i>-1 comparisons, thus making insertion sort more efficient when given sorted or "nearly sorted" arrays.</p>
+<p>While insertion sort typically makes fewer comparisons than selection sort, it requires more writes because the inner loop can require shifting large sections of the sorted portion of the array. In general, insertion sort will write to the array O(<i>n</i><sup>2</sup>) times, whereas selection sort will write only O(<span class="texhtml mvar" style="font-style:italic;">n</span>) times. For this reason selection sort may be preferable in cases where writing to memory is significantly more expensive than reading, such as with <a href="/wiki/EEPROM" title="EEPROM">EEPROM</a> or <a href="/wiki/Flash_memory" title="Flash memory">flash memory</a>.</p>
+<p>Some <a href="/wiki/Divide-and-conquer_algorithm" class="mw-redirect" title="Divide-and-conquer algorithm">divide-and-conquer algorithms</a> such as <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> and <a href="/wiki/Mergesort" class="mw-redirect" title="Mergesort">mergesort</a> sort by recursively dividing the list into smaller sublists which are then sorted. A useful optimization in practice for these algorithms is to use insertion sort for sorting small sublists, where insertion sort outperforms these more complex algorithms. The size of list for which insertion sort has the advantage varies by environment and implementation, but is typically between eight and twenty elements. A variant of this scheme runs quicksort with a constant cutoff <span class="texhtml mvar" style="font-style:italic;">K</span>, then runs a single insertion sort on the final array:</p>
+<pre>
+<b>proc</b> quicksort_k(A, lo, hi)
+    <b>if</b> hi - lo &lt; K
+        return
+    pivot ← partition(A, lo, hi)
+    quicksort_k(A, lo, pivot-1)
+    quicksort_k(A, pivot + 1, hi)
+</pre>
+<pre>
+<b>proc</b> sort(A)
+    quicksort_k(A, 0, length(A))
+    insertionsort(A)
+</pre>
+<p>This preserves the <span class="texhtml">O(<i>n</i> lg <i>n</i>)</span> expected time complexity of standard quicksort, because after running the <code>quicksort_k</code> procedure, the array <code>A</code> will be partially sorted in the sense that each element is at most <span class="texhtml mvar" style="font-style:italic;">K</span> positions away from its final, sorted position. On such a partially sorted array, insertion sort will run at most <span class="texhtml mvar" style="font-style:italic;">K</span> iterations of its inner loop, which is run <span class="texhtml"><i>n</i>-1</span> times, so it has linear time complexity.<sup id="cite_ref-pearls_2-3" class="reference"><a href="#cite_note-pearls-2">[2]</a></sup><sup class="reference" style="white-space:nowrap;">:121</sup></p>
+<h2><span class="mw-headline" id="Variants">Variants</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=4" title="Edit section: Variants">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><a href="/wiki/Donald_Shell" title="Donald Shell">D.L. Shell</a> made substantial improvements to the algorithm; the modified version is called <a href="/wiki/Shellsort" title="Shellsort">Shell sort</a>. The sorting algorithm compares elements separated by a distance that decreases on each pass. Shell sort has distinctly improved running times in practical work, with two simple variants requiring O(<i>n</i><sup>3/2</sup>) and O(<i>n</i><sup>4/3</sup>) running time.</p>
+<p>If the cost of comparisons exceeds the cost of swaps, as is the case for example with string keys stored by reference or with human interaction (such as choosing one of a pair displayed side-by-side), then using <i>binary insertion sort</i><sup class="noprint Inline-Template Template-Fact" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (September 2014)">citation needed</span></a></i>]</sup> may yield better performance. Binary insertion sort employs a <a href="/wiki/Binary_search_algorithm" title="Binary search algorithm">binary search</a> to determine the correct location to insert new elements, and therefore performs ⌈log<sub>2</sub>(<i>n</i>)⌉ comparisons in the worst case, which is O(<i>n</i> log <i>n</i>). The algorithm as a whole still has a running time of O(<i>n</i><sup>2</sup>) on average because of the series of swaps required for each insertion.</p>
+<p>The number of swaps can be reduced by calculating the position of multiple elements before moving them. For example, if the target position of two elements is calculated before they are moved into the right position, the number of swaps can be reduced by about 25% for random data. In the extreme case, this variant works similar to <a href="/wiki/Merge_sort" title="Merge sort">merge sort</a>.</p>
+<p>A variant named <i>binary merge sort</i> uses a <i>binary insertion sort</i> to sort groups of 32 elements, followed by a final sort using <a href="/wiki/Merge_sort" title="Merge sort">merge sort</a>. It combines the speed of insertion sort on small data sets with the speed of merge sort on large data sets.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p>To avoid having to make a series of swaps for each insertion, the input could be stored in a <a href="/wiki/Linked_list" title="Linked list">linked list</a>, which allows elements to be spliced into or out of the list in constant-time when the position in the list is known. However, searching a linked list requires sequentially following the links to the desired position: a linked list does not have random access, so it cannot use a faster method such as binary search. Therefore, the running time required for searching is O(<i>n</i>) and the time for sorting is O(<i>n</i><sup>2</sup>). If a more sophisticated <a href="/wiki/Data_structure" title="Data structure">data structure</a> (e.g., <a href="/wiki/Heap_(data_structure)" title="Heap (data structure)">heap</a> or <a href="/wiki/Binary_tree" title="Binary tree">binary tree</a>) is used, the time required for searching and insertion can be reduced significantly; this is the essence of <a href="/wiki/Heap_sort" class="mw-redirect" title="Heap sort">heap sort</a> and <a href="/wiki/Binary_tree_sort" class="mw-redirect" title="Binary tree sort">binary tree sort</a>.</p>
+<p>In 2006 Bender, <a href="/w/index.php?title=Farach-Colton&amp;action=edit&amp;redlink=1" class="new" title="Farach-Colton (page does not exist)">Martin Farach-Colton</a>, and Mosteiro published a new variant of insertion sort called <i><a href="/wiki/Library_sort" title="Library sort">library sort</a></i> or <i>gapped insertion sort</i> that leaves a small number of unused spaces (i.e., "gaps") spread throughout the array. The benefit is that insertions need only shift elements over until a gap is reached. The authors show that this sorting algorithm runs with high probability in O(<i>n</i>&#160;log&#160;<i>n</i>) time.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>If a <a href="/wiki/Skip_list" title="Skip list">skip list</a> is used, the insertion time is brought down to O(log <i>n</i>), and swaps are not needed because the skip list is implemented on a linked list structure. The final running time for insertion would be O(<i>n</i> log <i>n</i>).</p>
+<p><i>List insertion sort</i> is a variant of insertion sort. It reduces the number of movements.<sup class="noprint Inline-Template Template-Fact" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (September 2011)">citation needed</span></a></i>]</sup></p>
+<h3><span class="mw-headline" id="List_insertion_sort_code_in_C">List insertion sort code in C</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=5" title="Edit section: List insertion sort code in C">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>If the items are stored in a linked list, then the list can be sorted with O(1) additional space. The algorithm starts with an initially empty (and therefore trivially sorted) list. The input items are taken off the list one at a time, and then inserted in the proper place in the sorted list. When the input list is empty, the sorted list has the desired result.</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr">
+<pre>
+<span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="nf">SortList1</span><span class="p">(</span><span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">pList</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="c1">// zero or one element in list</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">pList</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">pList</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pList</span><span class="p">;</span>
+    <span class="c1">// head is the first element of resulting sorted list</span>
+    <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">pList</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">current</span> <span class="o">=</span> <span class="n">pList</span><span class="p">;</span>
+        <span class="n">pList</span> <span class="o">=</span> <span class="n">pList</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">iValue</span> <span class="o">&lt;</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">iValue</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// insert into the head of the sorted list</span>
+            <span class="c1">// or as the first element into an empty sorted list</span>
+            <span class="n">current</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// insert current element into proper position in non-empty sorted list</span>
+            <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="c1">// last element of the sorted list</span>
+                   <span class="n">current</span><span class="o">-&gt;</span><span class="n">iValue</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="o">-&gt;</span><span class="n">iValue</span><span class="p">)</span> <span class="c1">// middle of the list</span>
+                <span class="p">{</span>
+                    <span class="c1">// insert into middle of the sorted list or as the last element</span>
+                    <span class="n">current</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">;</span>
+                    <span class="n">p</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span> <span class="c1">// done</span>
+                <span class="p">}</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The algorithm below uses a trailing pointer<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup> for the insertion into the sorted list. A simpler recursive method rebuilds the list each time (rather than splicing) and can use O(<i>n</i>) stack space.</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr">
+<pre>
+<span class="k">struct</span> <span class="n">LIST</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">pNext</span><span class="p">;</span>
+  <span class="kt">int</span>           <span class="n">iValue</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="nf">SortList</span><span class="p">(</span><span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">pList</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// zero or one element in list</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pList</span> <span class="o">||</span> <span class="o">!</span><span class="n">pList</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">pList</span><span class="p">;</span>
+
+  <span class="cm">/* build up the sorted array from the empty list */</span>
+  <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span> <span class="n">pSorted</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+  <span class="cm">/* take items off the input list one by one until empty */</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">pList</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="cm">/* remember the head */</span>
+      <span class="k">struct</span> <span class="n">LIST</span> <span class="o">*</span>   <span class="n">pHead</span>  <span class="o">=</span> <span class="n">pList</span><span class="p">;</span>
+      <span class="cm">/* trailing pointer for efficient splice */</span>
+      <span class="k">struct</span> <span class="n">LIST</span> <span class="o">**</span> <span class="n">ppTrail</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pSorted</span><span class="p">;</span>
+
+      <span class="cm">/* pop head off list */</span>
+      <span class="n">pList</span> <span class="o">=</span> <span class="n">pList</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">;</span>
+
+      <span class="cm">/* splice head into sorted list at proper place */</span>
+      <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">ppTrail</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">pHead</span><span class="o">-&gt;</span><span class="n">iValue</span> <span class="o">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">ppTrail</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iValue</span><span class="p">))</span> <span class="cm">/* does head belong here? */</span>
+      <span class="p">{</span>
+          <span class="cm">/* no - continue down the list */</span>
+          <span class="n">ppTrail</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">ppTrail</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pNext</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">pHead</span><span class="o">-&gt;</span><span class="n">pNext</span> <span class="o">=</span> <span class="o">*</span><span class="n">ppTrail</span><span class="p">;</span>
+      <span class="o">*</span><span class="n">ppTrail</span> <span class="o">=</span> <span class="n">pHead</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">pSorted</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=6" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span> <span class="reference-text"><cite class="citation web">Cortesi, Aldo (27 April 2007). <a rel="nofollow" class="external text" href="https://corte.si/posts/code/visualisingsorting/index.html">"Visualising Sorting Algorithms"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">16 March</span> 2017</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.aufirst=Aldo&amp;rft.aulast=Cortesi&amp;rft.btitle=Visualising+Sorting+Algorithms&amp;rft.date=2007-04-27&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fcorte.si%2Fposts%2Fcode%2Fvisualisingsorting%2Findex.html&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-pearls-2"><span class="mw-cite-backlink">^ <a href="#cite_ref-pearls_2-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-pearls_2-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-pearls_2-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-pearls_2-3"><sup><i><b>d</b></i></sup></a></span> <span class="reference-text"><cite class="citation book">Bentley, Jon (2000). <i>Programming Pearls</i>. ACM Press/Addison–Wesley.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.aufirst=Jon&amp;rft.aulast=Bentley&amp;rft.btitle=Programming+Pearls&amp;rft.date=2000&amp;rft.genre=book&amp;rft.pub=ACM+Press%2FAddison%93Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3">^</a></b></span> <span class="reference-text"><cite id="CITEREFSedgewick1983" class="citation"><a href="/wiki/Robert_Sedgewick_(computer_scientist)" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (1983), <i>Algorithms</i>, Addison-Wesley, pp.&#160;95ff, <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/978-0-201-06672-2" title="Special:BookSources/978-0-201-06672-2">978-0-201-06672-2</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.aufirst=Robert&amp;rft.aulast=Sedgewick&amp;rft.btitle=Algorithms&amp;rft.date=1983&amp;rft.genre=book&amp;rft.isbn=978-0-201-06672-2&amp;rft.pages=95ff&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4">^</a></b></span> <span class="reference-text"><cite class="citation book"><a href="/wiki/Thomas_H._Cormen" title="Thomas H. Cormen">Cormen, Thomas H.</a>; <a href="/wiki/Charles_E._Leiserson" title="Charles E. Leiserson">Leiserson, Charles E.</a>; <a href="/wiki/Ron_Rivest" title="Ron Rivest">Rivest, Ronald L.</a>; <a href="/wiki/Clifford_Stein" title="Clifford Stein">Stein, Clifford</a> (2001) [1990]. <i><a href="/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms">Introduction to Algorithms</a></i> (2nd ed.). MIT Press and McGraw-Hill. <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/0-262-03293-7" title="Special:BookSources/0-262-03293-7">0-262-03293-7</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.aufirst=Thomas+H.&amp;rft.aulast=Cormen&amp;rft.au=Leiserson%2C+Charles+E.&amp;rft.au=Rivest%2C+Ronald+L.&amp;rft.au=Stein%2C+Clifford&amp;rft.btitle=Introduction+to+Algorithms&amp;rft.date=2001&amp;rft.edition=2nd&amp;rft.genre=book&amp;rft.isbn=0-262-03293-7&amp;rft.pub=MIT+Press+and+McGraw-Hill&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span> Section 2.1: Insertion sort, pp. 15–21. See in particular p.&#160;17.</span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="https://docs.google.com/file/d/0B8KIVX-AaaGiYzcta0pFUXJnNG8">"Binary Merge Sort"</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=Binary+Merge+Sort&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fdocs.google.com%2Ffile%2Fd%2F0B8KIVX-AaaGiYzcta0pFUXJnNG8&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6">^</a></b></span> <span class="reference-text"><cite id="CITEREFBenderFarach-ColtonMosteiro2006" class="citation">Bender, Michael A.; <a href="/wiki/Martin_Farach-Colton" title="Martin Farach-Colton">Farach-Colton, Martín</a>; Mosteiro, Miguel A. (2006), "Insertion sort is <i>O</i>(<i>n</i>&#160;log&#160;<i>n</i>)", <i>Theory of Computing Systems</i>, <b>39</b> (3): 391–397, <a href="/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="//dx.doi.org/10.1007%2Fs00224-005-1237-z">10.1007/s00224-005-1237-z</a>, <a href="/wiki/Mathematical_Reviews" title="Mathematical Reviews">MR</a>&#160;<a rel="nofollow" class="external text" href="//www.ams.org/mathscinet-getitem?mr=2218409">2218409</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.atitle=Insertion+sort+is+O%28n+log+n%29&amp;rft.au=Farach-Colton%2C+Mart%C3n&amp;rft.aufirst=Michael+A.&amp;rft.aulast=Bender&amp;rft.au=Mosteiro%2C+Miguel+A.&amp;rft.date=2006&amp;rft.genre=article&amp;rft_id=%2F%2Fwww.ams.org%2Fmathscinet-getitem%3Fmr%3D2218409&amp;rft_id=info%3Adoi%2F10.1007%2Fs00224-005-1237-z&amp;rft.issue=3&amp;rft.jtitle=Theory+of+Computing+Systems&amp;rft.pages=391-397&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=39" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7">^</a></b></span> <span class="reference-text"><cite id="CITEREFHill" class="citation">Hill, Curt (ed.), "Trailing Pointer Technique", <a rel="nofollow" class="external text" href="http://euler.vcsu.edu:7000/11421/"><i>Euler</i></a>, Valley City State University<span class="reference-accessdate">, retrieved <span class="nowrap">22 September</span> 2012</span></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.atitle=Trailing+Pointer+Technique&amp;rft.btitle=Euler&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Feuler.vcsu.edu%3A7000%2F11421%2F&amp;rft.pub=Valley+City+State+University&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="Additional_reading">Additional reading</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=7" title="Edit section: Additional reading">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite id="CITEREFKnuth1998" class="citation"><a href="/wiki/Donald_Knuth" title="Donald Knuth">Knuth, Donald</a> (1998), "5.2.1: Sorting by Insertion", <i><a href="/wiki/The_Art_of_Computer_Programming" title="The Art of Computer Programming">The Art of Computer Programming</a></i>, 3. Sorting and Searching (second ed.), Addison-Wesley, pp.&#160;80–105, <a href="/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&#160;<a href="/wiki/Special:BookSources/0-201-89685-0" title="Special:BookSources/0-201-89685-0">0-201-89685-0</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.atitle=5.2.1%3A+Sorting+by+Insertion&amp;rft.aufirst=Donald&amp;rft.aulast=Knuth&amp;rft.btitle=The+Art+of+Computer+Programming&amp;rft.date=1998&amp;rft.edition=second&amp;rft.genre=bookitem&amp;rft.isbn=0-201-89685-0&amp;rft.pages=80-105&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Insertion_sort&amp;action=edit&amp;section=8" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table role="presentation" class="mbox-small plainlinks sistersitebox" style="background-color:#f9f9f9;border:1px solid #aaa;color:#000">
+<tr>
+<td class="mbox-image"><a href="/wiki/File:Wikibooks-logo-en-noslogan.svg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/40px-Wikibooks-logo-en-noslogan.svg.png" width="40" height="40" class="noviewer" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/60px-Wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/80px-Wikibooks-logo-en-noslogan.svg.png 2x" data-file-width="400" data-file-height="400" /></a></td>
+<td class="mbox-text plainlist">The Wikibook <i><a href="https://en.wikibooks.org/wiki/Algorithm_implementation" class="extiw" title="wikibooks:Algorithm implementation">Algorithm implementation</a></i> has a page on the topic of: <i><b><a href="https://en.wikibooks.org/wiki/Algorithm_implementation/Sorting/Insertion_sort" class="extiw" title="wikibooks:Algorithm implementation/Sorting/Insertion sort">Insertion sort</a></b></i></td>
+</tr>
+</table>
+<table role="presentation" class="mbox-small plainlinks sistersitebox" style="background-color:#f9f9f9;border:1px solid #aaa;color:#000">
+<tr>
+<td class="mbox-image"><a href="/wiki/File:Commons-logo.svg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/30px-Commons-logo.svg.png" width="30" height="40" class="noviewer" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/45px-Commons-logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png 2x" data-file-width="1024" data-file-height="1376" /></a></td>
+<td class="mbox-text plainlist">Wikimedia Commons has media related to <i><b><a href="https://commons.wikimedia.org/wiki/Category:Insertion_sort" class="extiw" title="commons:Category:Insertion sort">Insertion sort</a></b></i>.</td>
+</tr>
+</table>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://web.archive.org/web/20150308232109/http://www.sorting-algorithms.com/insertion-sort">Animated Sorting Algorithms: Insertion Sort</a> at the <a href="/wiki/Wayback_Machine" title="Wayback Machine">Wayback Machine</a> (archived 8 March 2015) – graphical demonstration</li>
+<li><cite id="CITEREFAdamovsky" class="citation">Adamovsky, John Paul, <a rel="nofollow" class="external text" href="http://www.pathcom.com/~vadco/binary.html"><i>Binary Insertion Sort – Scoreboard – Complete Investigation and C Implementation</i></a>, Pathcom</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.aufirst=John+Paul&amp;rft.aulast=Adamovsky&amp;rft.btitle=Binary+Insertion+Sort+%93+Scoreboard+%93+Complete+Investigation+and+C+Implementation&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.pathcom.com%2F~vadco%2Fbinary.html&amp;rft.pub=Pathcom&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</li>
+<li><cite class="citation"><a rel="nofollow" class="external text" href="http://electrofriends.com/source-codes/software-programs/c/sorting-programs/program-to-sort-the-numbers-using-insertion-sort/"><i>Insertion Sort in C with demo</i></a>, Electrofriends</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=Insertion+Sort+in+C+with+demo&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Felectrofriends.com%2Fsource-codes%2Fsoftware-programs%2Fc%2Fsorting-programs%2Fprogram-to-sort-the-numbers-using-insertion-sort%2F&amp;rft.pub=Electrofriends&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</li>
+<li><cite class="citation"><a rel="nofollow" class="external text" href="http://corewar.co.uk/assembly/insertion.htm"><i>Insertion Sort – a comparison with other O(n^2) sorting algorithms</i></a>, <a href="/wiki/United_Kingdom" title="United Kingdom">UK</a>: Core war</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=Insertion+Sort+%93+a+comparison+with+other+O%28n%5E2%29+sorting+algorithms&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fcorewar.co.uk%2Fassembly%2Finsertion.htm&amp;rft.place=UK&amp;rft.pub=Core+war&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>.</li>
+<li><cite class="citation"><a rel="nofollow" class="external text" href="http://literateprograms.org/Category:Insertion_sort"><i>Category:Insertion Sort</i></a> (wiki), LiteratePrograms</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=Category%3AInsertion+Sort&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fliterateprograms.org%2FCategory%3AInsertion_sort&amp;rft.pub=LiteratePrograms&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span> – implementations of insertion sort in various programming languages</li>
+<li><cite class="citation"><a rel="nofollow" class="external text" href="http://coderaptors.com/?InsertionSort"><i>InsertionSort</i></a>, Code raptors</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=InsertionSort&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fcoderaptors.com%2F%3FInsertionSort&amp;rft.pub=Code+raptors&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span> – colored, graphical Java applet that allows experimentation with the initial input and provides statistics</li>
+<li><cite id="CITEREFHarrison" class="citation">Harrison, <a rel="nofollow" class="external text" href="http://www.cs.ubc.ca/spider/harrison/Java/sorting-demo.html"><i>Sorting Algorithms Demo</i></a>, <a href="/wiki/Canada" title="Canada">CA</a>: UBC</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.au=Harrison&amp;rft.btitle=Sorting+Algorithms+Demo&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.cs.ubc.ca%2Fspider%2Fharrison%2FJava%2Fsorting-demo.html&amp;rft.place=CA&amp;rft.pub=UBC&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span> – visual demonstrations of sorting algorithms (implemented in Java)</li>
+<li><cite class="citation"><a rel="nofollow" class="external text" href="http://www.algolist.net/Algorithms/Sorting/Insertion_sort"><i>Insertion sort</i></a> (illustrated explanation), Algo list</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AInsertion+sort&amp;rft.btitle=Insertion+sort&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.algolist.net%2FAlgorithms%2FSorting%2FInsertion_sort&amp;rft.pub=Algo+list&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&#160;</span></span>. Java and C++ implementations.</li>
+</ul>
+<div role="navigation" class="navbox" aria-labelledby="Sorting_algorithms" style="padding:3px">
+<table class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit">
+<tr>
+<th scope="col" class="navbox-title" colspan="2">
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="/wiki/Template:Sorting" title="Template:Sorting"><abbr title="View this template" style=";;background:none transparent;border:none;">v</abbr></a></li>
+<li class="nv-talk"><a href="/wiki/Template_talk:Sorting" title="Template talk:Sorting"><abbr title="Discuss this template" style=";;background:none transparent;border:none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="//en.wikipedia.org/w/index.php?title=Template:Sorting&amp;action=edit"><abbr title="Edit this template" style=";;background:none transparent;border:none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="Sorting_algorithms" style="font-size:114%;margin:0 4em"><a href="/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithms</a></div>
+</th>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Theory</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Computational_complexity_theory" title="Computational complexity theory">Computational complexity theory</a></li>
+<li><a href="/wiki/Big_O_notation" title="Big O notation">Big O notation</a></li>
+<li><a href="/wiki/Total_order" title="Total order">Total order</a></li>
+<li><a href="/wiki/List_(computing)" class="mw-redirect" title="List (computing)">Lists</a></li>
+<li><a href="/wiki/In-place_algorithm" title="In-place algorithm">Inplacement</a></li>
+<li><a href="/wiki/Sorting_algorithm#Stability" title="Sorting algorithm">Stability</a></li>
+<li><a href="/wiki/Comparison_sort" title="Comparison sort">Comparison sort</a></li>
+<li><a href="/wiki/Adaptive_sort" title="Adaptive sort">Adaptive sort</a></li>
+<li><a href="/wiki/Sorting_network" title="Sorting network">Sorting network</a></li>
+<li><a href="/wiki/Integer_sorting" title="Integer sorting">Integer sorting</a></li>
+<li><a href="/wiki/X_%2B_Y_sorting" title="X + Y sorting">X + Y sorting</a></li>
+<li><a href="/wiki/Transdichotomous_model" title="Transdichotomous model">Transdichotomous model</a></li>
+<li><a href="/wiki/Quantum_sort" title="Quantum sort">Quantum sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Exchange sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Bubble_sort" title="Bubble sort">Bubble sort</a></li>
+<li><a href="/wiki/Cocktail_shaker_sort" title="Cocktail shaker sort">Cocktail shaker sort</a></li>
+<li><a href="/wiki/Odd%E2%80%93even_sort" title="Odd–even sort">Odd–even sort</a></li>
+<li><a href="/wiki/Comb_sort" title="Comb sort">Comb sort</a></li>
+<li><a href="/wiki/Gnome_sort" title="Gnome sort">Gnome sort</a></li>
+<li><a href="/wiki/Quicksort" title="Quicksort">Quicksort</a></li>
+<li><a href="/wiki/Slowsort" title="Slowsort">Slowsort</a></li>
+<li><a href="/wiki/Stooge_sort" title="Stooge sort">Stooge sort</a></li>
+<li><a href="/wiki/Bogosort" title="Bogosort">Bogosort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="/wiki/Selection_algorithm" title="Selection algorithm">Selection sorts</a></th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Selection_sort" title="Selection sort">Selection sort</a></li>
+<li><a href="/wiki/Heapsort" title="Heapsort">Heapsort</a></li>
+<li><a href="/wiki/Smoothsort" title="Smoothsort">Smoothsort</a></li>
+<li><a href="/wiki/Cartesian_tree#Application_in_sorting" title="Cartesian tree">Cartesian tree sort</a></li>
+<li><a href="/wiki/Tournament_sort" title="Tournament sort">Tournament sort</a></li>
+<li><a href="/wiki/Cycle_sort" title="Cycle sort">Cycle sort</a></li>
+<li><a href="/wiki/Weak_heap" title="Weak heap">Weak heapsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Insertion sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><strong class="selflink">Insertion sort</strong></li>
+<li><a href="/wiki/Shellsort" title="Shellsort">Shellsort</a></li>
+<li><a href="/wiki/Splaysort" title="Splaysort">Splaysort</a></li>
+<li><a href="/wiki/Tree_sort" title="Tree sort">Tree sort</a></li>
+<li><a href="/wiki/Library_sort" title="Library sort">Library sort</a></li>
+<li><a href="/wiki/Patience_sorting" title="Patience sorting">Patience sorting</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Merge sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Merge_sort" title="Merge sort">Merge sort</a></li>
+<li><a href="/wiki/Cascade_merge_sort" title="Cascade merge sort">Cascade merge sort</a></li>
+<li><a href="/wiki/Oscillating_merge_sort" title="Oscillating merge sort">Oscillating merge sort</a></li>
+<li><a href="/wiki/Polyphase_merge_sort" title="Polyphase merge sort">Polyphase merge sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Distribution sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/American_flag_sort" title="American flag sort">American flag sort</a></li>
+<li><a href="/wiki/Bead_sort" title="Bead sort">Bead sort</a></li>
+<li><a href="/wiki/Bucket_sort" title="Bucket sort">Bucket sort</a></li>
+<li><a href="/wiki/Burstsort" title="Burstsort">Burstsort</a></li>
+<li><a href="/wiki/Counting_sort" title="Counting sort">Counting sort</a></li>
+<li><a href="/wiki/Pigeonhole_sort" title="Pigeonhole sort">Pigeonhole sort</a></li>
+<li><a href="/wiki/Proxmap_sort" title="Proxmap sort">Proxmap sort</a></li>
+<li><a href="/wiki/Radix_sort" title="Radix sort">Radix sort</a></li>
+<li><a href="/wiki/Flashsort" title="Flashsort">Flashsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Concurrent sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Bitonic_sorter" title="Bitonic sorter">Bitonic sorter</a></li>
+<li><a href="/wiki/Batcher_odd%E2%80%93even_mergesort" title="Batcher odd–even mergesort">Batcher odd–even mergesort</a></li>
+<li><a href="/wiki/Pairwise_sorting_network" title="Pairwise sorting network">Pairwise sorting network</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="/wiki/Hybrid_algorithm" title="Hybrid algorithm">Hybrid sorts</a></th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Block_sort" title="Block sort">Block merge sort</a></li>
+<li><a href="/wiki/Timsort" title="Timsort">Timsort</a></li>
+<li><a href="/wiki/Introsort" title="Introsort">Introsort</a></li>
+<li><a href="/wiki/Spreadsort" title="Spreadsort">Spreadsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/Topological_sorting" title="Topological sorting">Topological sorting</a></li>
+<li><a href="/wiki/Pancake_sorting" title="Pancake sorting">Pancake sorting</a></li>
+<li><a href="/wiki/Spaghetti_sort" title="Spaghetti sort">Spaghetti sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1266
+Cached time: 20170326124208
+Cache expiry: 2592000
+Dynamic content: false
+CPU time usage: 0.252 seconds
+Real time usage: 0.398 seconds
+Preprocessor visited node count: 1549/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 55054/2097152 bytes
+Template argument size: 2172/2097152 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 2/500
+Lua time usage: 0.113/10.000 seconds
+Lua memory usage: 4.4 MB/50 MB
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  343.272      1 -total
+ 24.72%   84.864      1 Template:Reflist
+ 15.69%   53.853      2 Template:Citation_needed
+ 14.12%   48.475      2 Template:Fix
+ 12.29%   42.183      2 Template:Cite_web
+ 11.27%   38.675      1 Template:Infobox_Algorithm
+ 11.05%   37.931     11 Template:Citation
+ 10.60%   36.393      1 Template:Infobox
+  8.09%   27.763      4 Template:Category_handler
+  5.49%   18.852      1 Template:Commons_category
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:15205-0!*!0!!en!4!* and timestamp 20170326124208 and revision id 770857101
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Insertion_sort&amp;oldid=770857101">https://en.wikipedia.org/w/index.php?title=Insertion_sort&amp;oldid=770857101</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="/wiki/Category:Sorting_algorithms" title="Category:Sorting algorithms">Sorting algorithms</a></li><li><a href="/wiki/Category:Comparison_sorts" title="Category:Comparison sorts">Comparison sorts</a></li><li><a href="/wiki/Category:Stable_sorts" title="Category:Stable sorts">Stable sorts</a></li><li><a href="/wiki/Category:Online_sorts" title="Category:Online sorts">Online sorts</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:Pages_using_deprecated_image_syntax" title="Category:Pages using deprecated image syntax">Pages using deprecated image syntax</a></li><li><a href="/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="/wiki/Category:Articles_with_unsourced_statements_from_September_2014" title="Category:Articles with unsourced statements from September 2014">Articles with unsourced statements from September 2014</a></li><li><a href="/wiki/Category:Articles_with_unsourced_statements_from_September_2011" title="Category:Articles with unsourced statements from September 2011">Articles with unsourced statements from September 2011</a></li><li><a href="/wiki/Category:Webarchive_template_wayback_links" title="Category:Webarchive template wayback links">Webarchive template wayback links</a></li><li><a href="/wiki/Category:Articles_with_example_pseudocode" title="Category:Articles with example pseudocode">Articles with example pseudocode</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="/wiki/Special:MyTalk" title="Discussion about edits from this IP address [n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="/wiki/Special:MyContributions" title="A list of edits made from this IP address [y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="/w/index.php?title=Special:CreateAccount&amp;returnto=Insertion+sort" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Insertion+sort" title="You're encouraged to log in; however, it's not mandatory. [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Insertion_sort"  title="View the content page [c]" accesskey="c">Article</a></span></li>
+															<li  id="ca-talk"><span><a href="/wiki/Talk:Insertion_sort"  title="Discussion about the content page [t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span><a href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="/wiki/Insertion_sort" >Read</a></span></li>
+															<li id="ca-edit"><span><a href="/w/index.php?title=Insertion_sort&amp;action=edit"  title="Edit this page [e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Insertion_sort&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span><a href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Wikipedia" title="Search Wikipedia [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search Wikipedia for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="//shop.wikimedia.org" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-interaction' aria-labelledby='p-interaction-label'>
+			<h3 id='p-interaction-label'>Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Insertion_sort" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Insertion_sort" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="/w/index.php?title=Insertion_sort&amp;oldid=770857101" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/w/index.php?title=Insertion_sort&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q117241" title="Link to connected data repository item [g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="/w/index.php?title=Special:CiteThisPage&amp;page=Insertion_sort&amp;id=770857101" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-coll-print_export' aria-labelledby='p-coll-print_export-label'>
+			<h3 id='p-coll-print_export-label'>Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Insertion+sort">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Insertion+sort&amp;returnto=Insertion+sort&amp;oldid=770857101&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="/w/index.php?title=Insertion_sort&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-wikibase-otherprojects' aria-labelledby='p-wikibase-otherprojects-label'>
+			<h3 id='p-wikibase-otherprojects-label'>In other projects</h3>
+
+			<div class="body">
+									<ul>
+						<li class="wb-otherproject-link wb-otherproject-commons"><a href="https://commons.wikimedia.org/wiki/Category:Insertion_sort" hreflang="en">Wikimedia Commons</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-lang' aria-labelledby='p-lang-label'>
+			<h3 id='p-lang-label'>Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-ar"><a href="https://ar.wikipedia.org/wiki/%D8%AA%D8%B1%D8%AA%D9%8A%D8%A8_%D8%A8%D8%A7%D9%84%D8%A5%D8%AF%D8%B1%D8%A7%D8%AC" title="ترتيب بالإدراج – Arabic" lang="ar" hreflang="ar" class="interlanguage-link-target">العربية</a></li><li class="interlanguage-link interwiki-az"><a href="https://az.wikipedia.org/wiki/%C6%8Flav%C9%99_etm%C9%99kl%C9%99_s%C4%B1ralama" title="Əlavə etməklə sıralama – Azerbaijani" lang="az" hreflang="az" class="interlanguage-link-target">Azərbaycanca</a></li><li class="interlanguage-link interwiki-bg"><a href="https://bg.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%B0%D0%BD%D0%B5_%D1%87%D1%80%D0%B5%D0%B7_%D0%B2%D0%BC%D1%8A%D0%BA%D0%B2%D0%B0%D0%BD%D0%B5" title="Сортиране чрез вмъкване – Bulgarian" lang="bg" hreflang="bg" class="interlanguage-link-target">Български</a></li><li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/%C5%98azen%C3%AD_vkl%C3%A1d%C3%A1n%C3%ADm" title="Řazení vkládáním – Czech" lang="cs" hreflang="cs" class="interlanguage-link-target">Čeština</a></li><li class="interlanguage-link interwiki-da"><a href="https://da.wikipedia.org/wiki/Inds%C3%A6ttelsessortering" title="Indsættelsessortering – Danish" lang="da" hreflang="da" class="interlanguage-link-target">Dansk</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Insertionsort" title="Insertionsort – German" lang="de" hreflang="de" class="interlanguage-link-target">Deutsch</a></li><li class="interlanguage-link interwiki-et"><a href="https://et.wikipedia.org/wiki/Vahelepanemisega_sortimine" title="Vahelepanemisega sortimine – Estonian" lang="et" hreflang="et" class="interlanguage-link-target">Eesti</a></li><li class="interlanguage-link interwiki-el"><a href="https://el.wikipedia.org/wiki/%CE%A4%CE%B1%CE%BE%CE%B9%CE%BD%CF%8C%CE%BC%CE%B7%CF%83%CE%B7_%CE%BC%CE%B5_%CE%B5%CE%B9%CF%83%CE%B1%CE%B3%CF%89%CE%B3%CE%AE" title="Ταξινόμηση με εισαγωγή – Greek" lang="el" hreflang="el" class="interlanguage-link-target">Ελληνικά</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Ordenamiento_por_inserci%C3%B3n" title="Ordenamiento por inserción – Spanish" lang="es" hreflang="es" class="interlanguage-link-target">Español</a></li><li class="interlanguage-link interwiki-fa"><a href="https://fa.wikipedia.org/wiki/%D9%85%D8%B1%D8%AA%D8%A8%E2%80%8C%D8%B3%D8%A7%D8%B2%DB%8C_%D8%AF%D8%B1%D8%AC%DB%8C" title="مرتب‌سازی درجی – Persian" lang="fa" hreflang="fa" class="interlanguage-link-target">فارسی</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/Tri_par_insertion" title="Tri par insertion – French" lang="fr" hreflang="fr" class="interlanguage-link-target">Français</a></li><li class="interlanguage-link interwiki-ko"><a href="https://ko.wikipedia.org/wiki/%EC%82%BD%EC%9E%85_%EC%A0%95%EB%A0%AC" title="삽입 정렬 – Korean" lang="ko" hreflang="ko" class="interlanguage-link-target">한국어</a></li><li class="interlanguage-link interwiki-hy"><a href="https://hy.wikipedia.org/wiki/%D5%86%D5%A5%D6%80%D5%A4%D6%80%D5%B4%D5%A1%D5%B4%D5%A2_%D5%BF%D5%A5%D5%BD%D5%A1%D5%AF%D5%A1%D5%BE%D5%B8%D6%80%D5%B8%D6%82%D5%B4" title="Ներդրմամբ տեսակավորում – Armenian" lang="hy" hreflang="hy" class="interlanguage-link-target">Հայերեն</a></li><li class="interlanguage-link interwiki-is"><a href="https://is.wikipedia.org/wiki/Innsetningarr%C3%B6%C3%B0un" title="Innsetningarröðun – Icelandic" lang="is" hreflang="is" class="interlanguage-link-target">Íslenska</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Insertion_sort" title="Insertion sort – Italian" lang="it" hreflang="it" class="interlanguage-link-target">Italiano</a></li><li class="interlanguage-link interwiki-he"><a href="https://he.wikipedia.org/wiki/%D7%9E%D7%99%D7%95%D7%9F_%D7%94%D7%9B%D7%A0%D7%A1%D7%94" title="מיון הכנסה – Hebrew" lang="he" hreflang="he" class="interlanguage-link-target">עברית</a></li><li class="interlanguage-link interwiki-lt"><a href="https://lt.wikipedia.org/wiki/%C4%AEterpimo_rikiavimo_algoritmas" title="Įterpimo rikiavimo algoritmas – Lithuanian" lang="lt" hreflang="lt" class="interlanguage-link-target">Lietuvių</a></li><li class="interlanguage-link interwiki-hu"><a href="https://hu.wikipedia.org/wiki/Besz%C3%BAr%C3%A1sos_rendez%C3%A9s" title="Beszúrásos rendezés – Hungarian" lang="hu" hreflang="hu" class="interlanguage-link-target">Magyar</a></li><li class="interlanguage-link interwiki-ml"><a href="https://ml.wikipedia.org/wiki/%E0%B4%87%E0%B5%BB%E0%B4%B8%E0%B5%BC%E0%B4%B7%E0%B5%BB_%E0%B4%B8%E0%B5%8B%E0%B5%BC%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D" title="ഇൻസർഷൻ സോർട്ട് – Malayalam" lang="ml" hreflang="ml" class="interlanguage-link-target">മലയാളം</a></li><li class="interlanguage-link interwiki-nl"><a href="https://nl.wikipedia.org/wiki/Insertion_sort" title="Insertion sort – Dutch" lang="nl" hreflang="nl" class="interlanguage-link-target">Nederlands</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E6%8C%BF%E5%85%A5%E3%82%BD%E3%83%BC%E3%83%88" title="挿入ソート – Japanese" lang="ja" hreflang="ja" class="interlanguage-link-target">日本語</a></li><li class="interlanguage-link interwiki-no"><a href="https://no.wikipedia.org/wiki/Sorteringsalgoritme#Innstikksortering" title="Sorteringsalgoritme – Norwegian" lang="no" hreflang="no" class="interlanguage-link-target">Norsk bokmål</a></li><li class="interlanguage-link interwiki-pl"><a href="https://pl.wikipedia.org/wiki/Sortowanie_przez_wstawianie" title="Sortowanie przez wstawianie – Polish" lang="pl" hreflang="pl" class="interlanguage-link-target">Polski</a></li><li class="interlanguage-link interwiki-pt"><a href="https://pt.wikipedia.org/wiki/Insertion_sort" title="Insertion sort – Portuguese" lang="pt" hreflang="pt" class="interlanguage-link-target">Português</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0_%D0%B2%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0%D0%BC%D0%B8" title="Сортировка вставками – Russian" lang="ru" hreflang="ru" class="interlanguage-link-target">Русский</a></li><li class="interlanguage-link interwiki-si"><a href="https://si.wikipedia.org/wiki/%E0%B7%83%E0%B7%92%E0%B6%82%E0%B7%84%E0%B6%BD" title="සිංහල – Sinhala" lang="si" hreflang="si" class="interlanguage-link-target">සිංහල</a></li><li class="interlanguage-link interwiki-sk"><a href="https://sk.wikipedia.org/wiki/Triedenie_priamym_vkladan%C3%ADm" title="Triedenie priamym vkladaním – Slovak" lang="sk" hreflang="sk" class="interlanguage-link-target">Slovenčina</a></li><li class="interlanguage-link interwiki-sl"><a href="https://sl.wikipedia.org/wiki/Urejanje_z_navadnim_vstavljanjem" title="Urejanje z navadnim vstavljanjem – Slovenian" lang="sl" hreflang="sl" class="interlanguage-link-target">Slovenščina</a></li><li class="interlanguage-link interwiki-sr"><a href="https://sr.wikipedia.org/wiki/Sortiranje_umetanjem" title="Sortiranje umetanjem – Serbian" lang="sr" hreflang="sr" class="interlanguage-link-target">Српски / srpski</a></li><li class="interlanguage-link interwiki-fi"><a href="https://fi.wikipedia.org/wiki/Lis%C3%A4yslajittelu" title="Lisäyslajittelu – Finnish" lang="fi" hreflang="fi" class="interlanguage-link-target">Suomi</a></li><li class="interlanguage-link interwiki-sv"><a href="https://sv.wikipedia.org/wiki/Ins%C3%A4ttningssortering" title="Insättningssortering – Swedish" lang="sv" hreflang="sv" class="interlanguage-link-target">Svenska</a></li><li class="interlanguage-link interwiki-th"><a href="https://th.wikipedia.org/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A5%E0%B8%B3%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%81%E0%B8%97%E0%B8%A3%E0%B8%81" title="การเรียงลำดับแบบแทรก – Thai" lang="th" hreflang="th" class="interlanguage-link-target">ไทย</a></li><li class="interlanguage-link interwiki-tr"><a href="https://tr.wikipedia.org/wiki/Eklemeli_s%C4%B1ralama" title="Eklemeli sıralama – Turkish" lang="tr" hreflang="tr" class="interlanguage-link-target">Türkçe</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%BD%D1%8F%D0%BC" title="Сортування включенням – Ukrainian" lang="uk" hreflang="uk" class="interlanguage-link-target">Українська</a></li><li class="interlanguage-link interwiki-vi"><a href="https://vi.wikipedia.org/wiki/S%E1%BA%AFp_x%E1%BA%BFp_ch%C3%A8n" title="Sắp xếp chèn – Vietnamese" lang="vi" hreflang="vi" class="interlanguage-link-target">Tiếng Việt</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F" title="插入排序 – Chinese" lang="zh" hreflang="zh" class="interlanguage-link-target">中文</a></li>					</ul>
+				<div class='after-portlet after-portlet-lang'><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q117241#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 18 March 2017, at 00:41.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="//en.m.wikipedia.org/w/index.php?title=Insertion_sort&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="/static/images/wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"/></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/static/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.252","walltime":"0.398","ppvisitednodes":{"value":1549,"limit":1000000},"ppgeneratednodes":{"value":0,"limit":1500000},"postexpandincludesize":{"value":55054,"limit":2097152},"templateargumentsize":{"value":2172,"limit":2097152},"expansiondepth":{"value":11,"limit":40},"expensivefunctioncount":{"value":2,"limit":500},"entityaccesscount":{"value":1,"limit":400},"timingprofile":["100.00%  343.272      1 -total"," 24.72%   84.864      1 Template:Reflist"," 15.69%   53.853      2 Template:Citation_needed"," 14.12%   48.475      2 Template:Fix"," 12.29%   42.183      2 Template:Cite_web"," 11.27%   38.675      1 Template:Infobox_Algorithm"," 11.05%   37.931     11 Template:Citation"," 10.60%   36.393      1 Template:Infobox","  8.09%   27.763      4 Template:Category_handler","  5.49%   18.852      1 Template:Commons_category"]},"scribunto":{"limitreport-timeusage":{"value":"0.113","limit":"10.000"},"limitreport-memusage":{"value":4609865,"limit":52428800}},"cachereport":{"origin":"mw1266","timestamp":"20170326124208","ttl":2592000,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":62,"wgHostname":"mw1177"});});</script>
+	</body>
+</html>
